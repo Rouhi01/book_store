@@ -4,11 +4,11 @@ from django.views import View
 
 
 class HomeView(View):
-    template_name = ''
+    template_name = 'home/home.html'
     form_class = ''
 
     def get(self, reqeust):
-        return HttpResponse('Welcome')
+        return render(reqeust, template_name=self.template_name)
 
     def post(self, request):
         pass
