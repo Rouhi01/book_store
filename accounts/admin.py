@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .forms import UserCreationForm, UserChangeForm
-from .models import User
+from .models import User, RegistrationCode
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -29,6 +29,11 @@ class UserAdmin(BaseUserAdmin):
     ordering = []
     filter_horizontal = ()
 
-# Register the User model with the corrected UserAdmin
+
+@admin.register(RegistrationCode)
+class RegistrationCodeAdmin(admin.ModelAdmin):
+    list_display = ['email', 'code', 'created']
+
+
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
