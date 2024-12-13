@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    {% include 'accounts/includes/head_links.html' %}
+    <title>قالب html کابانا</title>
+</head>
+
+<body>
+<main class="register-bg">
+
+    <div class="breadcrumb-items">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="{% url 'home:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="register-form-area">
+        <div class="register-form">
+
+            <div class="register-heading">
+                <p class="alert alert-danger">لینک فعالسازی نامعتبر است.</p>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% include 'accounts/includes/scripts.html' %}
+
+</body>
+
+</html>

@@ -27,11 +27,3 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-
-class RegistrationCode(models.Model):
-    email = models.EmailField()
-    code = models.PositiveIntegerField()
-    created = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.email} - {self.code} - {self.created}'
