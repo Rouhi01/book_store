@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.utils.encoding import force_str
 from django.shortcuts import render, redirect
 from django.utils.http import urlsafe_base64_decode
@@ -115,4 +115,12 @@ class Login(View):
                 messages.error(request, 'نام کاربری / ایمیل یا رمز عبور اشتباه است.')
                 return render(request, self.template_name, {'form': form})
         return render(request, self.template_name, {'form':form})
+
+
+class LogOut(View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, 'شما از حساب کاربری تان خازج شدید')
+        return redirect('home:home')
+
 

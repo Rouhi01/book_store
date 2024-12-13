@@ -28,7 +28,12 @@
                                         <li class="shopping-card">
                                             <a href="cart.html"><img src='{% static "img/icon/cart.svg" %}' alt=""></a>
                                         </li>
-                                        <li><a href="login.html" class="btn header-btn">ورود</a></li>
+                                        {% if request.user.is_authenticated %}
+                                            <li><a href="{% url 'accounts:logout' %}" class="btn header-btn">خروج</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'accounts:login' %}" class="btn header-btn">ورود</a></li>
+                                        {% endif %}
+
                                     </ul>
                                 </div>
                             </div>
