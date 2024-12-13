@@ -9,7 +9,7 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ['email', 'is_admin']
+    list_display = ['email', 'is_admin', 'is_active']
     list_filter = ['is_admin']
 
     # Corrected fieldsets

@@ -5,19 +5,37 @@ from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
-    p1 = forms.CharField(widget=forms.PasswordInput, label='password')
-    p2 = forms.CharField(widget=forms.PasswordInput, label='confirm password')
+    p1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder':'رمز عبور'}),
+        label='رمز عبور'
+    )
+    p2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder':'رمز عبور خود را مجدد وارد کنید'}),
+        label='تأییدیه رمز عبور'
+    )
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['email']
+        widgets = {
+            'email': forms.EmailInput(attrs={'placeholder':'ایمیل'})
+        }
+        labels = {
+            'email': 'ایمیل'
+        }
 
     def clean_p2(self):
-        p1 = self.cleaned_data['p1']
-        p2 = self.cleaned_data['p2']
-        if p1 and p2 and p1 != p2:
-            raise ValidationError
-        return p2
+        ps1 = self.cleaned_data['p1']
+        ps2 = self.cleaned_data['p2']
+        if ps1 and ps2 and ps1 != ps2:
+            raise ValidationError('رمز عبورها مطابقت ندارند.')
+        return ps2
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise ValidationError('کاربری با این ایمیل وجود دارد.')
+        return email
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -33,3 +51,14 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = '__all__'
+
+
+class UserLoginForm(forms.Form):
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder':'رمز عبور خود را وارد کنید'}),
+        label='رمزعبور'
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder':'ایمیل / نام کاربری'}),
+        label='نام کاربری یا ایمیل'
+    )

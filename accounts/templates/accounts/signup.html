@@ -1,0 +1,74 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    {% include 'accounts/includes/head_links.html' %}
+    <title>قالب html کابانا</title>
+</head>
+
+<body>
+<main class="register-bg">
+
+    <div class="breadcrumb-items">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="{% url 'home:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                </li>
+                <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                <li>
+                    <span class="breadcrumb-active">ورود</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="register-form-area">
+        <div class="register-form">
+
+            <div class="register-heading">
+                <span>ثبت نام</span>
+                <p>برای دسترسی به سایت ثبت نام کنید</p>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <div class="single-input-fields">
+                        <label>{{ form.email.label }}</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="alert alert-warning" role="alert">
+                        	    {{ form.email.errors }}
+                            </div>
+                        {% endif %}<br>
+                    </div>
+                    <div class="single-input-fields">
+                        <label>{{ form.p1.label }}</label>
+                        {{ form.p1 }}
+                    </div>
+                    <div class="single-input-fields">
+                        <label>{{ form.p2.label }}</label>
+                        {{ form.p2 }}
+                        {% if form.p2.errors %}
+                            <div class="alert alert-warning" role="alert">
+                        	    {{ form.p2.errors }}
+                            </div>
+                        {% endif %}<br>
+                    </div>
+                </div>
+
+                <div class="register-footer">
+                    <p>حساب کاربری دارید؟ <a href="{% url 'accounts:login' %}">وارد شوید</a></p>
+                    <button class="submit-btn3">ثبت نام</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</main>
+{% include 'accounts/includes/scripts.html' %}
+
+</body>
+
+</html>

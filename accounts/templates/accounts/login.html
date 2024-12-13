@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <title>قالب html کابانا</title>
+    {% include 'accounts/includes/head_links.html' %}
+</head>
+
+<body>
+    <main class="login-bg">
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">ورود</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="login-form-area">
+            <div class="login-form">
+
+                <div class="login-heading">
+                    <span>ورود</span>
+                    <p>برای دسترسی به سایت وارد شوید</p>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <div class="text-center text-danger">
+                            {% include 'accounts/includes/messages.html' %}
+                        </div>
+                        <div class="single-input-fields">
+                            <label>{{ form.email.label }}</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="single-input-fields">
+                            <label>{{ form.password.label }}</label>
+                            {{ form.password }}
+                        </div>
+                        <div class="single-input-fields login-check">
+                            <input type="checkbox" id="fruit1" name="keep-log">
+                            <label for="fruit1">مرا به یاد داشته باش!</label>
+                            <a href="#" class="f-right">رمز خود را فراموش کرده اید؟</a>
+                        </div>
+                    </div>
+
+                    <div class="login-footer">
+                        <p>حساب کاربری ندارید؟ <a href="{% url 'accounts:signup' %}">ثبت نام</a> کنید.</p>
+                        <button class="submit-btn3">ورود</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+    {% include 'accounts/includes/scripts.html' %}
+</body>
+
+</html>
