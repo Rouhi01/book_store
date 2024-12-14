@@ -1,0 +1,100 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% include 'includes/head_links.html' %}
+    <title>Document</title>
+    <style>
+        .avatar {
+            vertical-align: middle;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+<main>
+
+    <div class="breadcrumb-items">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="{% url 'home:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                </li>
+                <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                <li>
+                    <a href="{% url 'accounts:profile' %}" class="breadcrumb-link">پروفایل</a>
+                </li>
+                <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                <li>
+                    <span class="breadcrumb-active">ویرایش پروفایل</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="contact-title">اطلاعات تماس</h2>
+                </div>
+                <div style="text-align: center" class="col-lg-12 mb-3 mt-2">
+                    <a href="">
+                        <img src="{% static 'img/author/barbara.jpg' %}" alt="Avatar"
+                             class="avatar img-thumbnail border border-success shadow">
+                    </a>
+                </div>
+                <div class="col-lg-12">
+                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
+                          novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                        <textarea class="form-control w-100" name="message" id="message" cols="30"
+                                                  rows="9"
+                                                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'متن پیام'"
+                                                  placeholder=" متن پیام"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control valid" name="name" id="name" type="text"
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'نام و نام خانوادگی'"
+                                           placeholder="نام و نام خانوادگی">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control valid" name="email" id="email" type="email"
+                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'ایمیل'"
+                                           placeholder="ایمیل">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input class="form-control" name="subject" id="subject" type="text"
+                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'موضوع'"
+                                           placeholder="موضوع">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="button button-contactForm boxed-btn">ارسال</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        </div>
+    </section>
+
+</main>
+{% include 'includes/back-top.html' %}
+{% include 'includes/scripts.html' %}
+</body>
+</html>

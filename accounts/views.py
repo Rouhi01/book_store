@@ -124,3 +124,36 @@ class LogOut(View):
         return redirect('home:home')
 
 
+class ProfileView(View):
+    template_name = 'accounts/profile.html'
+    form_class = 'ProfilePostForm'
+
+    # def dispatch(self, request, *args, **kwargs):
+    #     pass
+    #
+    # def setup(self, request, *args, **kwargs):
+    #     pass
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+    def post(self, request):
+        pass
+
+
+class EditProfileView(View):
+    templates_name = 'accounts/edit_profile.html'
+    form_class = 'EditProfileForm'
+
+    def get(self, request):
+        return render(request, self.templates_name)
+
+
+class BioView(View):
+    template_name = 'accounts/bio.html'
+    form_class = ''
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
