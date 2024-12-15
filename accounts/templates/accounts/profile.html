@@ -1,7 +1,5 @@
 
 
-
-
 {% load static %}
 <!doctype html>
 <html class="no-js" lang="en">
@@ -31,115 +29,117 @@
     </div>
     <div class="container">
         <div class="profile-env">
-            <header class="row">
-                <div class="col-sm-2">
+            <header class="row justify-content-center text-center">
+                <!-- Profile Picture -->
+                <div class="col-lg-12 col-sm-12 mb-3 d-flex justify-content-center" style="width: 40%;">
                     <a href="#" class="profile-picture">
                         {% if user.profile.profile_picture.url %}
-                            <img src="{{ user.profile.profile_picture.url }}" alt="" class="img-responsive img-circle">
+                            <img src="{{ user.profile.profile_picture.url }}"
+                                 alt=""
+                                 class="img-responsive border-success"
+                                 style="border-radius: 50%; width: 120px; height: 120px;">
                         {% else %}
-                            <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt="" class="img-responsive img-circle">
+                            <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt=""
+                                 class="img-responsive img-circle" style="width: 120px; height: 120px;">
                         {% endif %}
                     </a>
                 </div>
-                <div class="col-sm-7">
-                    <ul class="profile-info-sections">
-                        <li>
-                            <div class="profile-name">
-                                <strong>
-                                    <a href="#" class="text-dark">{{ user.profile.first_name }} {{ user.profile.last_name }}</a>
-                                </strong>
-                            </div>
-                        </li>
+
+                <!-- Profile Info Sections -->
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <div class="profile-name">
+                        <strong>
+                            <a href="#" class="" style="color: #037f81; font-family: monospace">
+                                {{ user.profile.first_name }} {{ user.profile.last_name }}
+                            </a>
+                        </strong>
+                    </div>
+                </div>
+                <hr style="border: none; height: 2px; background-color: #ccc; margin: 20px 0;">
+                <div class="col-12 d-flex justify-content-center mb-2">
+                    <ul class="profile-info-sections list-unstyled d-flex justify-content-center gap-4">
                         <li>
                             <div class="profile-stat">
                                 <h3>643</h3>
                                 <span>
-                                    <a href="#">دنبال کنندگان</a>
-                                </span>
+                        <a href="#">دنبال کنندگان</a>
+                    </span>
                             </div>
                         </li>
                         <li>
                             <div class="profile-stat">
                                 <h3>108</h3>
                                 <span>
-                                    <a href="#">دنبال شوندگان</a>
-                                </span>
+                        <a href="#">دنبال شوندگان</a>
+                    </span>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
-                    <div class="profile-buttons">
-                        <a href="#" class="btn btn-dark bg-secondary border-0">
-                            دنبال کردن
-                        </a>
+
+                <!-- Buttons Section -->
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="profile-buttons">
+                            <div class="form-group mt-3">
+                                <a href="{% url 'accounts:edit_profile' user.id %}"
+                                   class="button  button-contactForm boxed-btn"
+                                   style="text-decoration: none">
+                                    ویرایش پروفایل
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <hr style="border: none; height: 2px; background-color: #ccc; margin: 20px 0;">
             </header>
 
-            <section class="profile-info-tabs mt-4">
-                <div class="row">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <!-- tabs for the profile links -->
-                        <ul class="nav nav-tabs">
-                            <li class="active">
-                                <a href="#profile-info" class="text-muted">پروفایل</a>
-                            </li>
-
-                            <li>
-                                <a href="{% url 'accounts:edit_profile' user.id %}" class="text-dark">ویرایش پروفایل</a>
-                            </li>
-                        </ul>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="form-contact" action=""
+                          method="post"
+                          id="contactForm"
+                          novalidate="novalidate" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea name=""
+                                              id=""
+                                              rows="10"
+                                              class="form-control"
+                                              placeholder="بنویس ...">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="button  button-contactForm boxed-btn">پست</button>
+                        </div>
+                    </form>
                 </div>
-            </section>
+            </div>
 
             <section class="profile-feed">
-                <!-- profile post form -->
-                <form class="profile-post-form" method="post">
-                    <textarea class="form-control autogrow" placeholder="چی ذهنتو درگیر کرده، بنویسش"
-                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 80px;"></textarea>
-                    <div class="form-options">
-                        <div class="post-type">
-                            <a href="#" class="tooltip-primary" data-toggle="tooltip" data-placement="bottom" title=""
-                               data-original-title="Upload a Picture">
-                                <i class="entypo-camera"></i>
-                            </a>
-                            <a href="#" class="tooltip-primary" data-toggle="tooltip" data-placement="bottom" title=""
-                               data-original-title="Attach a file">
-                                <i class="entypo-attach"></i>
-                            </a>
-                            <a href="#" class="tooltip-primary" data-toggle="tooltip" data-placement="bottom" title=""
-                               data-original-title="Check-in">
-                                <i class="entypo-location"></i>
-                            </a>
-                        </div>
-                        <div class="post-submit">
-                            <button type="button" class="btn ">پست</button>
-                        </div>
-                    </div>
-                </form>
                 <!-- profile stories -->
                 <div class="profile-stories">
                     <article class="story">
-                        <aside class="user-thumb">
-                            <a href="#">
-                                {% if user.profile.profile_picture.url %}
-                                    <img src="{{ user.profile.profile_picture.url }}" alt="" class="img-responsive img-circle">
-                                {% else %}
-                                    <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt='' class="img-circle">
-                                {% endif %}
-                            </a>
-                        </aside>
                         <div class="story-content">
                             <!-- story header -->
-                            <header>
-                                <div class="publisher" style="margin-left: 10px">
-                                    <a href="#" class="text-dark fw-bold">{{ user.profile.first_name }} {{ user.profile.last_name }}</a>
-                                    <em>۳ ساعت قبل</em>
+                            <header style="display: flex; align-items: center; justify-content: flex-start; direction: rtl;">
+                                <!-- عکس سمت راست -->
+                                <div style="margin-left: 10px;">
+                                    <img src="{% if user.profile.profile_picture.url %}{{ user.profile.profile_picture.url }}
+                                              {% else %}{% static 'img/default_avatar/default-avatar.png' %}{% endif %}"
+                                         alt="پروفایل"
+                                         style="border-radius: 50%; width: 40px; height: 40px;">
                                 </div>
-                                <div class="story-type">
-                                    <i class="entypo-feather"></i>
+                                <!-- نام و ساعت سمت چپ -->
+                                <div style="display: flex; flex-direction: column;">
+                                    <a href="#"
+                                       style="font-family: Arial, Baskerville, monospace; color: #0aa7a9; font-weight: bold; text-decoration: none;">
+                                        {{ user.profile.first_name }} {{ user.profile.last_name }}
+                                    </a>
+                                    <em style="font-size: 12px; color: #808080;">۳ ساعت قبل</em>
                                 </div>
                             </header>
                             <div class="story-main-content">
@@ -171,7 +171,7 @@
                                         </div>
                                         <div class="user-comment-content">
                                             <a href="#" class="user-comment-name fw-bold text-dark"
-                                               style="margin-right: 8px">
+                                               style="margin-right: 8px; font-family: Arial, Baskerville, monospace;">
                                                 الکس جانتون
                                             </a><br>
                                             ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
