@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-from .models import User
+from .models import User, Profile
 
 
 class UserCreationForm(forms.ModelForm):
@@ -62,3 +62,29 @@ class UserLoginForm(forms.Form):
         widget=forms.EmailInput(attrs={'placeholder':'ایمیل / نام کاربری'}),
         label='نام کاربری یا ایمیل'
     )
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'last_name', 'phone_number', 'gender', 'date_of_birth', 'bio', 'profile_picture']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control valid', 'type': 'text', 'placeholder': 'نام'}),
+            'last_name': forms.TextInput(
+                attrs={'class': 'form-control valid', 'type': 'text', 'placeholder': 'نام خانوادگی'}
+            ),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'شماره تلفن'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'درباره خودت بنویس'}),
+            'date_of_birth': forms.DateInput(
+                attrs={'class': 'form-control valid', 'type': 'date', 'placeholder': 'تاریخ تولد'}
+            ),
+            'gender': forms.Select(attrs={'class': 'form-control'}),
+            'profile_picture': forms.ClearableFileInput(
+                attrs={'class': 'form-control-file avatar img-thumbnail border border-success shadow'}),
+        }
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        if Profile.objects.filter(phone_number=phone_number).exists():
+            raise ValidationError('کاربری با این شماره تلفن وجود دارد.')
+        return phone_number

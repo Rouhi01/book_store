@@ -31,6 +31,7 @@ class User(AbstractBaseUser):
 class Profile(models.Model):
 
     GENDER_CHOICES = [
+        ('', 'انتخاب جنسیت'),
         ('male', 'مرد'),
         ('female', 'زن'),
     ]

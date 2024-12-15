@@ -38,47 +38,70 @@
     <section class="contact-section">
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    <h2 class="contact-title">اطلاعات تماس</h2>
-                </div>
-                <div style="text-align: center" class="col-lg-12 mb-3 mt-2">
-                    <a href="">
-                        <img src="{% static 'img/author/barbara.jpg' %}" alt="Avatar"
-                             class="avatar img-thumbnail border border-success shadow">
-                    </a>
-                </div>
                 <div class="col-lg-12">
                     <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm"
                           novalidate="novalidate">
+                        {% csrf_token %}
+                        <div style="text-align: center" class="col-lg-12 mb-5">
+                            <a href="">
+                                {{ form.profile_picture }}
+{#                                <img src="{% static 'img/author/barbara.jpg' %}" alt="Avatar"#}
+{#                                     class="avatar img-thumbnail border border-success shadow">#}
+                            </a>
+                        </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-sm-6">
                                 <div class="form-group">
-                                        <textarea class="form-control w-100" name="message" id="message" cols="30"
-                                                  rows="9"
-                                                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'متن پیام'"
-                                                  placeholder=" متن پیام"></textarea>
+                                    {{ form.first_name }}
+{#                                    <input class="form-control valid" name="name" id="name" type="text"#}
+{#                                           onfocus="this.placeholder = ''"#}
+{#                                           onblur="this.placeholder = '{{ form.first_name.label }}'"#}
+{#                                           placeholder="{{ form.first_name.label }}">#}
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <input class="form-control valid" name="name" id="name" type="text"
-                                           onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = 'نام و نام خانوادگی'"
-                                           placeholder="نام و نام خانوادگی">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <input class="form-control valid" name="email" id="email" type="email"
-                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'ایمیل'"
-                                           placeholder="ایمیل">
+                                    {{ form.last_name }}
+{#                                    <input class="form-control valid" name="last_name" id="last_name" type="text"#}
+{#                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'نام خانوادگی'"#}
+{#                                           placeholder="نام خانوادگی">#}
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <input class="form-control" name="subject" id="subject" type="text"
-                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'موضوع'"
-                                           placeholder="موضوع">
+                                    {{ form.phone_number }}
+{#                                    <input class="form-control" name="phone_number" id="phone_number" type="text"#}
+{#                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'شماره تلفن'"#}
+{#                                           placeholder="شماره تلفن">#}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ form.date_of_birth }}
+{#                                    <input class="form-control valid" name="date_of_birth" id="date_of_birth"#}
+{#                                           type="date"#}
+{#                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'تاریخ تولد'"#}
+{#                                           placeholder="تاریخ تولد">#}
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ form.gender }}
+{#                                    <text class="text-muted">جنسیت:</text>#}
+{#                                    <input type="radio" id="html" name="gender" value="مرد" class="mr-10">#}
+{#                                    <label for="html">مرد</label>#}
+{#                                    <input type="radio" id="css" name="gender" value="زن">#}
+{#                                    <label for="css">زن</label><br>#}
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    {{ form.bio }}
+{#                                        <textarea class="form-control w-100" name="message" id="message" cols="30"#}
+{#                                                  rows="9"#}
+{#                                                  onfocus="this.placeholder = ''" onblur="this.placeholder = 'متن پیام'"#}
+{#                                                  placeholder="درباره خودت بنویس"></textarea>#}
                                 </div>
                             </div>
                         </div>

@@ -11,5 +11,4 @@ urlpatterns = [
 
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('edit_profile/', views.EditProfileView.as_view(), name='edit_profile'),
-    path('bio/', views.BioView.as_view(), name='bio'),
 ]

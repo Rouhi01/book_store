@@ -3,7 +3,7 @@ from django.utils.encoding import force_str
 from django.shortcuts import render, redirect
 from django.utils.http import urlsafe_base64_decode
 from django.views import View
-from .forms import UserCreationForm, UserLoginForm
+from .forms import UserCreationForm, UserLoginForm, EditProfileForm
 from django.contrib import messages
 from utils import email_registration_code
 from .tokens import account_activation_token
@@ -143,17 +143,13 @@ class ProfileView(View):
 
 class EditProfileView(View):
     templates_name = 'accounts/edit_profile.html'
-    form_class = 'EditProfileForm'
+    form_class = EditProfileForm
 
     def get(self, request):
-        return render(request, self.templates_name)
+        form = self.form_class()
+        context = {'form': form}
+        return render(request, self.templates_name, context=context)
 
 
-class BioView(View):
-    template_name = 'accounts/bio.html'
-    form_class = ''
-
-    def get(self, request):
-        return render(request, self.template_name)
 
 
