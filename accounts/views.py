@@ -143,24 +143,34 @@ class ProfileView(View):
         pass
 
 
-class EditProfileView(View):
+class EditProfileView(LoginRequiredMixin, View):
     templates_name = 'accounts/edit_profile.html'
     form_class = EditProfileForm
 
-    def get(self, request, user_id):
-        user = User.objects.get(pk=user_id)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.user = User.objects.get(pk=kwargs['user_id'])
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != self.user.id:
+            return render(request, '404.html', {}, status=404)
+        else:
+            return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.user.id)
         form = self.form_class(instance=request.user.profile)
         context = {'form': form, 'user':user}
         return render(request, self.templates_name, context=context)
 
-    def post(self, request, user_id):
-        user = User.objects.get(pk=user_id)
+    def post(self, request, *args, **kwargs):
+        user = User.objects.get(pk=self.user)
         form = self.form_class(request.POST, request.FILES, instance=request.user.profile)
         context = {'form': form, 'user':user}
         if form.is_valid():
             form.save()
             messages.success(request, 'پروفایل بروزرسانی شد', 'success')
-            return redirect('accounts:profile', user_id=user_id)
+            return redirect('accounts:profile', user_id=self.user.id)
         return render(request, self.templates_name, context=context)
 
 
