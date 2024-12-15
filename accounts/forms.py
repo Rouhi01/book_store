@@ -85,6 +85,8 @@ class EditProfileForm(forms.ModelForm):
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data['phone_number']
-        if Profile.objects.filter(phone_number=phone_number).exists():
+        current_profile = self.instance
+
+        if Profile.objects.filter(phone_number=phone_number).exclude(id=current_profile.id).exists():
             raise ValidationError('کاربری با این شماره تلفن وجود دارد.')
         return phone_number

@@ -34,7 +34,11 @@
             <header class="row">
                 <div class="col-sm-2">
                     <a href="#" class="profile-picture">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img-responsive img-circle">
+                        {% if user.profile.profile_picture.url %}
+                            <img src="{{ user.profile.profile_picture.url }}" alt="" class="img-responsive img-circle">
+                        {% else %}
+                            <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt="" class="img-responsive img-circle">
+                        {% endif %}
                     </a>
                 </div>
                 <div class="col-sm-7">
@@ -42,7 +46,7 @@
                         <li>
                             <div class="profile-name">
                                 <strong>
-                                    <a href="#" class="text-dark">روح الله شفاهی</a>
+                                    <a href="#" class="text-dark">{{ user.profile.first_name }} {{ user.profile.last_name }}</a>
                                 </strong>
                             </div>
                         </li>
@@ -72,7 +76,24 @@
                     </div>
                 </div>
             </header>
-            {% include 'accounts/includes/profile_header.html' %}
+
+            <section class="profile-info-tabs mt-4">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <!-- tabs for the profile links -->
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#profile-info" class="text-muted">پروفایل</a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'accounts:edit_profile' user.id %}" class="text-dark">ویرایش پروفایل</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
             <section class="profile-feed">
                 <!-- profile post form -->
                 <form class="profile-post-form" method="post">
@@ -103,14 +124,18 @@
                     <article class="story">
                         <aside class="user-thumb">
                             <a href="#">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="44" alt=""
-                                     class="img-circle"> </a>
+                                {% if user.profile.profile_picture.url %}
+                                    <img src="{{ user.profile.profile_picture.url }}" alt="" class="img-responsive img-circle">
+                                {% else %}
+                                    <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt='' class="img-circle">
+                                {% endif %}
+                            </a>
                         </aside>
                         <div class="story-content">
                             <!-- story header -->
                             <header>
                                 <div class="publisher" style="margin-left: 10px">
-                                    <a href="#" class="text-dark fw-bold">روح الله شفاهی</a>
+                                    <a href="#" class="text-dark fw-bold">{{ user.profile.first_name }} {{ user.profile.last_name }}</a>
                                     <em>۳ ساعت قبل</em>
                                 </div>
                                 <div class="story-type">

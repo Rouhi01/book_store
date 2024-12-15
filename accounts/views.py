@@ -8,6 +8,7 @@ from django.contrib import messages
 from utils import email_registration_code
 from .tokens import account_activation_token
 from .models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # SignUp
@@ -134,10 +135,11 @@ class ProfileView(View):
     # def setup(self, request, *args, **kwargs):
     #     pass
 
-    def get(self, request):
-        return render(request, self.template_name)
+    def get(self, request, user_id):
+        user = User.objects.get(pk=user_id)
+        return render(request, self.template_name, {'user':user})
 
-    def post(self, request):
+    def post(self, request, user_id):
         pass
 
 
@@ -145,9 +147,20 @@ class EditProfileView(View):
     templates_name = 'accounts/edit_profile.html'
     form_class = EditProfileForm
 
-    def get(self, request):
-        form = self.form_class()
-        context = {'form': form}
+    def get(self, request, user_id):
+        user = User.objects.get(pk=user_id)
+        form = self.form_class(instance=request.user.profile)
+        context = {'form': form, 'user':user}
+        return render(request, self.templates_name, context=context)
+
+    def post(self, request, user_id):
+        user = User.objects.get(pk=user_id)
+        form = self.form_class(request.POST, request.FILES, instance=request.user.profile)
+        context = {'form': form, 'user':user}
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'پروفایل بروزرسانی شد', 'success')
+            return redirect('accounts:profile', user_id=user_id)
         return render(request, self.templates_name, context=context)
 
 

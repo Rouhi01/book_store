@@ -3,7 +3,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-
+from django.contrib.auth.mixins import UserPassesTestMixin
 from accounts.tokens import account_activation_token
 
 
@@ -21,3 +21,8 @@ def email_registration_code(request, user, form):
         mail_subject, message, to=[to_email]
     )
     email.send()
+
+
+class IsAdminUserMixin(UserPassesTestMixin):
+    def test_func(self):
+        return
