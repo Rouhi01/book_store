@@ -1,13 +1,13 @@
 from django.contrib.auth import login, authenticate, logout
 from django.utils.encoding import force_str
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from .forms import UserCreationForm, UserLoginForm, EditProfileForm
 from django.contrib import messages
 from utils import email_registration_code
 from .tokens import account_activation_token
-from .models import User
+from .models import User, Relation
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -132,14 +132,20 @@ class ProfileView(View):
     # def dispatch(self, request, *args, **kwargs):
     #     pass
     #
-    # def setup(self, request, *args, **kwargs):
-    #     pass
+    def setup(self, request, *args, **kwargs):
+        self.user = get_object_or_404(User, pk=kwargs['user_id'])
+        super().setup(request, *args, **kwargs)
 
-    def get(self, request, user_id):
-        user = User.objects.get(pk=user_id)
-        return render(request, self.template_name, {'user':user})
+    def get(self, request, *args, **kwargs):
+        user = self.user
+        is_following = False
+        if request.user.is_authenticated:
+            relation = Relation.objects.filter(from_user=request.user, to_user=self.user)
+            if relation.exists():
+                is_following = True
+        return render(request, self.template_name, {'user':user, 'is_following':is_following})
 
-    def post(self, request, user_id):
+    def post(self, request, *args, **kwargs):
         pass
 
 
@@ -172,6 +178,38 @@ class EditProfileView(LoginRequiredMixin, View):
             messages.success(request, 'پروفایل بروزرسانی شد', 'success')
             return redirect('accounts:profile', user_id=self.user.id)
         return render(request, self.templates_name, context=context)
+
+
+class FollowView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        relation = Relation.objects.filter(from_user=request.user, to_user=user)
+        if relation.exists():
+            messages.error(request,'شما کاربر را قبلا دنبال کرده اید.', 'danger')
+        else:
+            Relation(from_user=request.user, to_user=user).save()
+            request.user.profile.following += 1
+            request.user.profile.save()
+            user.profile.follower += 1
+            user.profile.save()
+            messages.success(request, 'شما کاربر را از این به بعد دنبال میکنید', 'success')
+        return redirect('accounts:profile', user_id)
+
+
+class UnFollowView(LoginRequiredMixin, View):
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        relation = Relation.objects.filter(from_user=request.user, to_user=user)
+        if relation.exists():
+            relation.delete()
+            request.user.profile.following -= 1
+            request.user.profile.save()
+            user.profile.follower -= 1
+            user.profile.save()
+            messages.success(request, 'شما کاربر رو دیگر دنبال نمیکنید', 'success')
+        else:
+            messages.error(request, 'شما کاربر رو دنبال نمیکنید', 'danger')
+        return redirect('accounts:profile', user_id)
 
 
 

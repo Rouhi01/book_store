@@ -11,4 +11,7 @@ urlpatterns = [
 
     path('profile/<int:user_id>/', views.ProfileView.as_view(), name='profile'),
     path('edit_profile/<int:user_id>/', views.EditProfileView.as_view(), name='edit_profile'),
+
+    path('follow/<int:user_id>/', views.FollowView.as_view(), name='follow'),
+    path('unfollow/<int:user_id>/', views.UnFollowView.as_view(), name='unfollow'),
 ]

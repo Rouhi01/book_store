@@ -44,8 +44,19 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='profiles/', blank=True, null=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
+    follower = models.PositiveIntegerField(default=0)
+    following = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.email} - Profile"
+
+
+class Relation(models.Model):
+    from_user = models.ForeignKey(User, models.CASCADE, related_name='followers')
+    to_user = models.ForeignKey(User, models.CASCADE, related_name='followings')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.from_user} following {self.to_user}'

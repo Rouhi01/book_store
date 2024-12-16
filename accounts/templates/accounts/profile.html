@@ -29,6 +29,7 @@
     </div>
     <div class="container">
         <div class="profile-env">
+            {% include 'includes/messages.html' %}
             <header class="row justify-content-center text-center">
                 <!-- Profile Picture -->
                 <div class="col-lg-12 col-sm-12 mb-3 d-flex justify-content-center" style="width: 40%;">
@@ -60,7 +61,7 @@
                     <ul class="profile-info-sections list-unstyled d-flex justify-content-center gap-4">
                         <li>
                             <div class="profile-stat">
-                                <h3>643</h3>
+                                <h3>{{ user.profile.follower }}</h3>
                                 <span>
                         <a href="#">دنبال کنندگان</a>
                     </span>
@@ -68,7 +69,7 @@
                         </li>
                         <li>
                             <div class="profile-stat">
-                                <h3>108</h3>
+                                <h3>{{ user.profile.following }}</h3>
                                 <span>
                         <a href="#">دنبال شوندگان</a>
                     </span>
@@ -78,7 +79,7 @@
                 </div>
 
                 <!-- Buttons Section -->
-                {% if request.user.id == user.id %}
+                {% if request.user.is_authenticated and request.user.id == user.id %}
                     <div class="row">
                         <div class="col-12 d-flex justify-content-center">
                             <div class="profile-buttons">
@@ -102,23 +103,41 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                            <div class="profile-buttons">
-                                <div class="form-group mt-3">
-                                    <a href="{% url 'accounts:edit_profile' user.id %}"
-                                       class="button  button-contactForm boxed-btn"
-                                       style="text-decoration: none">
-                                        دنبال کردن
-                                    </a>
+                    {% if request.user.is_authenticated %}
+                        {% if is_following %}
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="profile-buttons">
+                                        <div class="form-group mt-3">
+                                            <a href="{% url 'accounts:unfollow' user.id %}"
+                                               class="button  button-contactForm boxed-btn btn-danger"
+                                               style="text-decoration: none; color: white !important;">
+                                                دنبال نکردن
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        {% else %}
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <div class="profile-buttons">
+                                        <div class="form-group mt-3">
+                                            <a href="{% url 'accounts:follow' user.id %}"
+                                               class="button  button-contactForm boxed-btn"
+                                               style="text-decoration: none">
+                                                دنبال کردن
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
                 <hr style="border: none; height: 2px; background-color: #ccc; margin: 20px 0;">
             </header>
-            {% if request.user.id == user.id %}
+            {% if request.user.is_authenticated and request.user.id == user.id %}
                 <div class="row">
                     <div class="col-lg-12">
                         <form class="form-contact" action=""
