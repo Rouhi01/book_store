@@ -60,3 +60,13 @@ class Relation(models.Model):
 
     def __str__(self):
         return f'{self.from_user} following {self.to_user}'
+
+
+class Post(models.Model):
+    user = models.ForeignKey(User, models.CASCADE, related_name='posts')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']

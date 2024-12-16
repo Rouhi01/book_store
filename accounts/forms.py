@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
-from .models import User, Profile
+from .models import User, Profile, Post
 
 
 class UserCreationForm(forms.ModelForm):
@@ -90,3 +90,16 @@ class EditProfileForm(forms.ModelForm):
         if Profile.objects.filter(phone_number=phone_number).exclude(id=current_profile.id).exists():
             raise ValidationError('کاربری با این شماره تلفن وجود دارد.')
         return phone_number
+
+
+class ProfilePostForm(forms.ModelForm):
+    class Meta:
+        model= Post
+        fields= ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'پست کنید...',
+                'rows': 3,
+            }),
+        }

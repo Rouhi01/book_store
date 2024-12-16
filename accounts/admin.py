@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .forms import UserCreationForm, UserChangeForm
-from .models import User, Profile, Relation
+from .models import User, Profile, Relation, Post
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -39,3 +39,4 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(Relation)
+admin.site.register(Post)
