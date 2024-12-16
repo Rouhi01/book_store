@@ -26,3 +26,5 @@ def email_registration_code(request, user, form):
 class IsAdminUserMixin(UserPassesTestMixin):
     def test_func(self):
         return
+
+

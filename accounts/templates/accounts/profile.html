@@ -163,99 +163,28 @@
             <section class="profile-feed">
                 <!-- profile stories -->
                 <div class="profile-stories">
-                    {% for post in posts %}
-                        <article class="story">
-                            <div class="story-content">
-                                <!-- story header -->
-                                <header style="display: flex; align-items: center; justify-content: flex-start; direction: rtl;">
-                                    <!-- عکس سمت راست -->
-                                    <div style="margin-left: 10px;">
-                                        <img src="{% if user.profile.profile_picture %}{{ user.profile.profile_picture.url }}
-                                              {% else %}{% static 'img/default_avatar/default-avatar.png' %}{% endif %}"
-                                             alt="پروفایل"
-                                             style="border-radius: 50%; width: 40px; height: 40px;">
-                                    </div>
-                                    <!-- نام و ساعت سمت چپ -->
-                                    <div style="display: flex; flex-direction: column;">
-                                        <a href="#"
-                                           style="font-family: Arial, Baskerville, monospace; color: #0aa7a9; font-weight: bold; text-decoration: none;">
-                                            {{ user.profile.first_name }} {{ user.profile.last_name }}
-                                        </a>
-                                        <em style="font-size: 12px; color: #808080;">{{ post.created_at}}</em>
-                                    </div>
-                                </header>
-                                <div class="story-main-content">
-                                    <p>{{ post.content }}</p>
+                    <div style="max-width: 100%; margin: auto; background-color: #fff; border: 1px solid #ddd; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 15px;">
+                        {% for post in posts %}
+                            <div style="padding: 7px 0;">
+                                <div style="font-size: 15px; font-weight: bold; margin-bottom: 5px; color: #000;">
+                                    <span>{{ forloop.counter }}</span>.
+                                    <a href=""
+                                       style="text-decoration: none;
+                                       color: #000000;
+                                       margin-right: 5px">{{ post.content|truncatewords:'15' }}
+                                    </a>
                                 </div>
-                                <!-- story like and comment link -->
-                                <footer>
-                                    <a href="#" class="liked" style="color: darkgray">
-                                        <i class="entypo-heart"></i>
-                                        لایک
-                                        <span>(۱۲)</span>
-                                    </a>
-                                    <a href="#" style="color: darkgray">
-                                        <i class="entypo-comment"></i>
-                                        نظرات
-                                        <span>(۱۲)</span>
-                                    </a>
-                                    <!-- story comments -->
-                                    <ul class="comments">
-                                        <li>
-                                            <div class="user-comment-thumb">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                                     class="img-circle" width="30">
-                                            </div>
-                                            <div class="user-comment-content">
-                                                <a href="#" class="user-comment-name fw-bold text-dark"
-                                                   style="margin-right: 8px; font-family: Arial, Baskerville, monospace;">
-                                                    الکس جانتون
-                                                </a><br>
-                                                ورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
-                                                طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که
-                                                <div class="user-comment-meta">
-                                                    <a href="#" class="comment-date">۳ ساعت قبل</a>
-                                                    -
-                                                    <a href="#">
-                                                        <i class="entypo-heart"></i>
-                                                        لایک
-                                                        <span>(2)</span>
-                                                    </a>
-                                                    -
-                                                    <a href="#">
-                                                        <i class="entypo-comment"></i>
-                                                        ریپلای
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        {% if request.user.is_authenticated %}
-                                            <li class="comment-form">
-                                                <div class="user-comment-thumb">
-                                                    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""
-                                                         class="img-circle" width="30">
-                                                </div>
-                                                <div class="user-comment-content">
-                                            <textarea class="form-control autogrow" placeholder="نظرتو بنویس ..."
-                                                      style="margin-right: 8px; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 46px;"></textarea>
-                                                    <button class="btn">
-                                                        <i class="entypo-chat"></i>
-                                                    </button>
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                </footer>
-                                <!-- separator -->
-                                <hr>
+                                <div style="font-size: 12px; color: #888; margin-right: 20px">
+                                    <span style="margin-left: 10px;">۱۱۵ لایک</span>
+                                    <span style="margin-left: 10px;">{{ post.created_at|date:'Y/m/d' }} </span>
+                                    <span>|</span>
+                                    <span>۳۷ نظر</span>
+                                </div>
                             </div>
-                        </article>
-                    {% empty %}
-                        <p>پستی وجود ندارد</p>
-                    {% endfor %}
-
-
+                        {% empty %}
+                            <p>پستی وجود ندارد</p>
+                        {% endfor %}
+                    </div>
                     <div class="text-center">
                         <a href="#" class="btn btn-icon icon-left">
                             <i class="entypo-hourglass"></i>
