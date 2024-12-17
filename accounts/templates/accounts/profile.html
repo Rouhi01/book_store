@@ -170,12 +170,13 @@
                                     <span>{{ forloop.counter }}</span>.
                                     <a href=""
                                        style="text-decoration: none;
-                                       color: #000000;
+                                       color: #00a4a6;
                                        margin-right: 5px">{{ post.content|truncatewords:'15' }}
                                     </a>
                                 </div>
                                 <div style="font-size: 12px; color: #888; margin-right: 20px">
                                     <span style="margin-left: 10px;">۱۱۵ لایک</span>
+                                    <span>|</span>
                                     <span style="margin-left: 10px;">{{ post.created_at|date:'Y/m/d' }} </span>
                                     <span>|</span>
                                     <span>۳۷ نظر</span>
@@ -185,7 +186,7 @@
                             <p>پستی وجود ندارد</p>
                         {% endfor %}
                     </div>
-                    <div class="text-center">
+                    <div class="text-center" style="margin-top: 5px">
                         <a href="#" class="btn btn-icon icon-left">
                             <i class="entypo-hourglass"></i>
                             بیشتر ...
