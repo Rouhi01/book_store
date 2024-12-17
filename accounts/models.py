@@ -64,6 +64,7 @@ class Relation(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(User, models.CASCADE, related_name='posts')
+    title = models.CharField(max_length=120)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)

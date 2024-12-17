@@ -26,6 +26,8 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'store.apps.StoreConfig',
     'accounts.apps.AccountsConfig',
+
+    'taggit'
 ]
 
 MIDDLEWARE = [

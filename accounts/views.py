@@ -230,5 +230,14 @@ class UnFollowView(LoginRequiredMixin, View):
         return redirect('accounts:profile', user_id)
 
 
+class PostDetailView(View):
+    template_name = 'accounts/post_detail.html'
+    form_class = ''
 
+    def get(self, request, user_id, post_id):
+        user = User.objects.get(id=user_id)
+        post = get_object_or_404(Post, user=user, id=post_id)
+        return render(request, self.template_name, {'post':post})
 
+    def post(self, request, user_id, post_id):
+        pass
