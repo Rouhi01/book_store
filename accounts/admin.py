@@ -1,8 +1,13 @@
 from django.contrib import admin
 from .forms import UserCreationForm, UserChangeForm
-from .models import User
+from .models import User, Profile, Relation, Post
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
 
 
 class UserAdmin(BaseUserAdmin):
@@ -28,7 +33,10 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ['email']
     ordering = []
     filter_horizontal = ()
+    inlines = [ProfileInline]
 
 
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
+admin.site.register(Relation)
+admin.site.register(Post)
