@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from .managers import UserManager
-
-
+from taggit.managers import TaggableManager
+from home.models import CustomTaggedItem
 class User(AbstractBaseUser):
     email = models.EmailField(unique=True)
 
@@ -66,6 +66,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, models.CASCADE, related_name='posts')
     title = models.CharField(max_length=120)
     content = models.TextField()
+    tags = TaggableManager(through=CustomTaggedItem)
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

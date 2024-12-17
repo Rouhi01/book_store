@@ -1,7 +1,8 @@
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.db import models
 from accounts.models import User
+from django.db import models
+from taggit.models import GenericTaggedItemBase, TaggedItemBase
 
 
 class Comment(models.Model):
@@ -18,3 +19,9 @@ class Comment(models.Model):
 
     def get_model_name(self):
         return self.content_type.model_class().__name__
+
+
+class CustomTaggedItem(GenericTaggedItemBase, TaggedItemBase):
+    class Meta:
+        verbose_name = "tag"
+        verbose_name_plural = "tags"
