@@ -2,224 +2,212 @@
 {% load static %}
 {% block content %}
 
+<main>
 
+    <div class="breadcrumb-items">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="{% url 'home:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                </li>
+                <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                <li>
+                    <span class="breadcrumb-active">جزئیات پست</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-
-
-    <main>
-
-        <div class="breadcrumb-items">
+    <div class="single-blog">
+        <div class="container">
             <div class="row">
-                <ul class="breadcrumb">
-                    <li>
-                        <a href="index.html" class="breadcrumb-link">صفحه اصلی</a>
-                    </li>
-                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
-                    <li>
-                    <li>
-                        <a href="blog.html" class="breadcrumb-link">وبلاگ</a>
-                    </li>
-                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
-                    <li>
-                        <span class="breadcrumb-active">جزئیات وبلاگ</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+                <div class="col-l-12">
 
-        <div class="single-blog">
-            <div class="container">
-                <div class="row">
-                    <div class="col-l-12">
-
-                        <div class="single-blog-row d-flex justify-content-center mb-0" style="text-align: center">
-                            <div class="blog-caption">
-                                <div class="blog-title">
-                                    <h1>معرفی کتاب پر فروش کار را انجام دهید</h1>
-                                </div>
-                                <div class="meta d-flex flex-column" style="text-align: center">
-                                    <p>نویسنده مقاله: <a href="#" target="_self">مدیر سایت</a></p>
-                                    <p>تاریخ انتشار:<span>14 تیر 1402</span></p>
-                                </div>
+                    <div class="single-blog-row d-flex justify-content-center mb-0" style="text-align: center">
+                        <div class="blog-caption">
+                            <div class="blog-title">
+                                <h1>{{ post.title }}</h1>
+                            </div>
+                            <div class="meta d-flex flex-column" style="text-align: center">
+                                <p>نویسنده مقاله: <a href="#" target="_self">{{ post.user }}</a></p>
+                                <p>تاریخ انتشار:<span>{{ post.created_at|date:'d/m/y' }}</span></p>
+                            </div>
+                            {% if request.user.is_authenticated %}
                                 <div class="blog-btn">
-                                    <a href="#" class="white-btn mr-10">پسندیدن</a>
+                                    {% if liked %}
+                                        <a href="{% url 'home:like' object_id=post.id model_name=model_name %}"
+                                           class="white-btn mr-10"
+                                           style="background-color: #00a4a6; color: white">عدم پسندیدن <span
+                                                style="margin-right: 5px">{{ total_likes }}
+                                        </span></a>
+                                    {% else %}
+                                        <a href="{% url 'home:like' object_id=post.id model_name=model_name %}"
+                                           class="white-btn mr-10">پسندیدن <span
+                                                style="margin-right: 5px">{{ total_likes }}
+                                        </span></a>
+                                    {% endif %}
                                 </div>
-
-                            </div>
+                            {% endif %}
                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="our-client section-padding best-selling">
+        <div class="container">
+            <div class="row">
+                <div class="offset-xl-1 col-xl-10">
+                    <div class="nav-button f-right">
+
+                        <nav>
+                            <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                                <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
+                                   role="tab" aria-controls="nav-one" aria-selected="true">متن مقاله</a>
+                                <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four"
+                                   role="tab" aria-controls="nav-four" aria-selected="false">نظرات</a>
+                            </div>
+                        </nav>
 
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container">
 
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
 
-        <section class="our-client section-padding best-selling">
-            <div class="container">
-                <div class="row">
-                    <div class="offset-xl-1 col-xl-10">
-                        <div class="nav-button f-right">
-
-                            <nav>
-                                <div class="nav nav-tabs " id="nav-tab" role="tablist">
-                                    <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
-                                        role="tab" aria-controls="nav-one" aria-selected="true">متن مقاله</a>
-                                    <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four"
-                                        role="tab" aria-controls="nav-four" aria-selected="false">نظرات</a>
-                                </div>
-                            </nav>
-
+                    <div class="row">
+                        <div class="desc-tab offset-xl-1 col-lg-9">
+                            <p>{{ post.content }}</p>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container">
+                <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
 
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
-
-                        <div class="row">
-                            <div class="desc-tab offset-xl-1 col-lg-9">
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان
-                                    گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و
-                                    برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی
-                                    می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و
-                                    متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی
-                                    الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                    داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان
-                                    مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود
-                                    طراحی اساسا مورد استفاده قرار گیرد.</p>
-                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان
-                                    گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و
-                                    برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی
-                                    می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و
-                                    متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی
-                                    الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                                    داشت که تمام </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
-
-                        <div class="row">
-                            <div class="comment-tab offset-xl-1 col-lg-9">
-                                <div class="container bootdey">
-                                    <div class="col-md-12 bootstrap snippets">
-                                        <div class="panel">
-                                            <div class="panel-body">
-                                                <textarea class="form-control" rows="2"
-                                                    placeholder="نظر شما در مورد این مقاله چیست؟"></textarea>
-                                                <div class="mar-top clearfix">
-                                                    <button class="btn btn-sm btn-primary pull-right" type="submit"><i
-                                                            class="fa fa-pencil fa-fw"></i> ارسال نظر</button>
-                                                </div>
+                    <div class="row">
+                        <div class="comment-tab offset-xl-1 col-lg-9">
+                            <div class="container bootdey">
+                                <div class="col-md-12 bootstrap snippets">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <textarea class="form-control" rows="2"
+                                                      placeholder="نظر شما در مورد این مقاله چیست؟"></textarea>
+                                            <div class="mar-top clearfix">
+                                                <button class="btn btn-sm btn-primary pull-right" type="submit"><i
+                                                        class="fa fa-pencil fa-fw"></i> ارسال نظر
+                                                </button>
                                             </div>
                                         </div>
-                                        <div class="panel">
-                                            <div class="panel-body">
-                                                <!-- Newsfeed Content -->
-                                                <!--===================================================-->
-                                                <div class="media-block">
-                                                    <a class="media-right" href="#"><img class="img-circle img-sm"
-                                                            alt="Profile Picture"
-                                                            src="img/comments/first-comment.jpg"></a>
-                                                    <div class="media-body">
-                                                        <div class="mar-btm">
-                                                            <a href="#"
-                                                                class="btn-link text-semibold media-heading box-inline">سمیرا</a>
-                                                            <p class="text-muted text-sm"><i
-                                                                    class="fa fa-check fa-lg"></i>خریدار</p>
+                                    </div>
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <!-- Newsfeed Content -->
+                                            <!--===================================================-->
+                                            <div class="media-block">
+                                                <a class="media-right" href="#"><img class="img-circle img-sm"
+                                                                                     alt="Profile Picture"
+                                                                                     src="img/comments/first-comment.jpg"></a>
+                                                <div class="media-body">
+                                                    <div class="mar-btm">
+                                                        <a href="#"
+                                                           class="btn-link text-semibold media-heading box-inline">سمیرا</a>
+                                                        <p class="text-muted text-sm"><i
+                                                                class="fa fa-check fa-lg"></i>خریدار</p>
+                                                    </div>
+                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                        با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه
+                                                        و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
+                                                        تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
+                                                        کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
+                                                        آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با </p>
+                                                    <div class="pad-ver">
+                                                        <div class="btn-group">
+                                                            <a class="btn btn-sm btn-default btn-hover-danger"
+                                                               href="#"><i class="fa fa-thumbs-down"></i></a>
+                                                            <a class="btn btn-sm btn-default btn-hover-success"
+                                                               href="#"><i class="fa fa-thumbs-up"></i></a>
                                                         </div>
-                                                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                                                            با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه
-                                                            و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی
-                                                            تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای
-                                                            کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و
-                                                            آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با </p>
-                                                        <div class="pad-ver">
-                                                            <div class="btn-group">
-                                                                <a class="btn btn-sm btn-default btn-hover-danger"
-                                                                    href="#"><i class="fa fa-thumbs-down"></i></a>
-                                                                <a class="btn btn-sm btn-default btn-hover-success"
-                                                                    href="#"><i class="fa fa-thumbs-up"></i></a>
+                                                        <a class="btn btn-sm btn-default btn-hover-primary"
+                                                           href="#">پاسخ</a>
+                                                    </div>
+                                                    <hr>
+
+                                                    <!-- Comments -->
+                                                    <div>
+                                                        <div class="media-block">
+                                                            <a class="media-right" href="#"><img
+                                                                    class="img-circle img-sm" alt="Profile Picture"
+                                                                    src="img/comments/second-comment.jpg"></a>
+                                                            <div class="media-body">
+                                                                <div class="mar-btm">
+                                                                    <a href="#"
+                                                                       class="btn-link text-semibold media-heading box-inline">صابر</a>
+                                                                    <p class="text-muted text-sm"><i
+                                                                            class="fa fa-person fa-lg"></i>کاربر
+                                                                        سایت</p>
+                                                                </div>
+                                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                                                    صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                                                                    چاپگرها و متون بلکه روزنامه و مجله در ستون و
+                                                                    سطرآنچنان که لازم است، و برای شرایط فعلی
+                                                                    تکنولوژی مورد نیاز، و </p>
+                                                                <div class="pad-ver">
+                                                                    <div class="btn-group">
+                                                                        <a class="btn btn-sm btn-default btn-hover-danger"
+                                                                           href="#"><i
+                                                                                class="fa fa-thumbs-down"></i></a>
+                                                                        <a class="btn btn-sm btn-default btn-hover-success active"
+                                                                           href="#"><i class="fa fa-thumbs-up"></i>
+                                                                            <span>یک رأی موافق</span></a>
+                                                                    </div>
+                                                                    <a class="btn btn-sm btn-default btn-hover-primary"
+                                                                       href="#">پاسخ</a>
+                                                                </div>
+                                                                <hr>
                                                             </div>
-                                                            <a class="btn btn-sm btn-default btn-hover-primary"
-                                                                href="#">پاسخ</a>
                                                         </div>
-                                                        <hr>
 
-                                                        <!-- Comments -->
-                                                        <div>
-                                                            <div class="media-block">
-                                                                <a class="media-right" href="#"><img
-                                                                        class="img-circle img-sm" alt="Profile Picture"
-                                                                        src="img/comments/second-comment.jpg"></a>
-                                                                <div class="media-body">
-                                                                    <div class="mar-btm">
-                                                                        <a href="#"
-                                                                            class="btn-link text-semibold media-heading box-inline">صابر</a>
-                                                                        <p class="text-muted text-sm"><i
-                                                                                class="fa fa-person fa-lg"></i>کاربر
-                                                                            سایت</p>
-                                                                    </div>
-                                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-                                                                        صنعت چاپ، و با استفاده از طراحان گرافیک است،
-                                                                        چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                                                                        سطرآنچنان که لازم است، و برای شرایط فعلی
-                                                                        تکنولوژی مورد نیاز، و </p>
-                                                                    <div class="pad-ver">
-                                                                        <div class="btn-group">
-                                                                            <a class="btn btn-sm btn-default btn-hover-danger"
-                                                                                href="#"><i
-                                                                                    class="fa fa-thumbs-down"></i></a>
-                                                                            <a class="btn btn-sm btn-default btn-hover-success active"
-                                                                                href="#"><i class="fa fa-thumbs-up"></i>
-                                                                                <span>یک رأی موافق</span></a>
-                                                                        </div>
-                                                                        <a class="btn btn-sm btn-default btn-hover-primary"
-                                                                            href="#">پاسخ</a>
-                                                                    </div>
-                                                                    <hr>
+                                                        <div class="media-block">
+                                                            <a class="media-right" href="#"><img
+                                                                    class="img-circle img-sm" alt="Profile Picture"
+                                                                    src="img/comments/third-comment.jpg">
+                                                            </a>
+                                                            <div class="media-body">
+                                                                <div class="mar-btm">
+                                                                    <a href="#"
+                                                                       class="btn-link text-semibold media-heading box-inline">مهشید</a>
+                                                                    <p class="text-muted text-sm"><i
+                                                                            class="fa fa-person fa-lg"></i>کاربر
+                                                                        سایت</p>
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="media-block">
-                                                                <a class="media-right" href="#"><img
-                                                                        class="img-circle img-sm" alt="Profile Picture"
-                                                                        src="img/comments/third-comment.jpg">
-                                                                </a>
-                                                                <div class="media-body">
-                                                                    <div class="mar-btm">
-                                                                        <a href="#"
-                                                                            class="btn-link text-semibold media-heading box-inline">مهشید</a>
-                                                                        <p class="text-muted text-sm"><i
-                                                                                class="fa fa-person fa-lg"></i>کاربر
-                                                                            سایت</p>
+                                                                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
+                                                                    صنعت چاپ، و با استفاده از طراحان گرافیک است،
+                                                                    چاپگرها و </p>
+                                                                <div class="pad-ver">
+                                                                    <div class="btn-group">
+                                                                        <a class="btn btn-sm btn-default btn-hover-danger"
+                                                                           href="#"><i
+                                                                                class="fa fa-thumbs-down"></i></a>
+                                                                        <a class="btn btn-sm btn-default btn-hover-success"
+                                                                           href="#"><i
+                                                                                class="fa fa-thumbs-up"></i></a>
                                                                     </div>
-                                                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از
-                                                                        صنعت چاپ، و با استفاده از طراحان گرافیک است،
-                                                                        چاپگرها و </p>
-                                                                    <div class="pad-ver">
-                                                                        <div class="btn-group">
-                                                                            <a class="btn btn-sm btn-default btn-hover-danger"
-                                                                                href="#"><i
-                                                                                    class="fa fa-thumbs-down"></i></a>
-                                                                            <a class="btn btn-sm btn-default btn-hover-success"
-                                                                                href="#"><i
-                                                                                    class="fa fa-thumbs-up"></i></a>
-                                                                        </div>
-                                                                        <a class="btn btn-sm btn-default btn-hover-primary"
-                                                                            href="#">پاسخ</a>
-                                                                    </div>
-                                                                    <hr>
+                                                                    <a class="btn btn-sm btn-default btn-hover-primary"
+                                                                       href="#">پاسخ</a>
                                                                 </div>
+                                                                <hr>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!--===================================================-->
-                                                <!-- End Newsfeed Content -->
                                             </div>
+                                            <!--===================================================-->
+                                            <!-- End Newsfeed Content -->
                                         </div>
                                     </div>
                                 </div>
@@ -228,29 +216,19 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="blog-meta">
-            <div class="container">
-                <div class="tag">
-                    <p>برچسب:</p>
-                    <a href="#" target="_self"><span>#</span>کتابخوانی</a>
-                    <a href="#" target="_self"><span>#</span>معرفی کتاب</a>
-                    <a href="#" target="_self"><span>#</span>کتاب روانشناسی</a>
-                    <a href="#" target="_self"><span>#</span>خودشناسی</a>
-                    <a href="#" target="_self"><span>#</span>نویسندگی</a>
-                </div>
+    <section class="blog-meta">
+        <div class="container">
+            <div class="tag">
+                <p>برچسب:</p>
+                {% for tag in post.tags.all %}
+                    <a href="#" target="_self"><span>#</span>{{ tag.name }}</a>
+                {% endfor %}
             </div>
-        </section>
+        </div>
+    </section>
 
-
-
-
-
-    </main>
-
-
-
-
-
+</main>
 {% endblock %}

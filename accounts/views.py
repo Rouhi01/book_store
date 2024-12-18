@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import force_str
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.http import urlsafe_base64_decode
@@ -9,6 +10,7 @@ from utils import email_registration_code
 from .tokens import account_activation_token
 from .models import User, Relation, Post
 from django.contrib.auth.mixins import LoginRequiredMixin
+from home.models import Like
 
 
 # SignUp
@@ -237,7 +239,18 @@ class PostDetailView(View):
     def get(self, request, user_id, post_id):
         user = User.objects.get(id=user_id)
         post = get_object_or_404(Post, user=user, id=post_id)
-        return render(request, self.template_name, {'post':post})
+        model_name = post.__class__.__name__
+
+        liked = post.is_liked(request)
+
+        total_likes = post.get_total_likes()
+
+        return render(request, self.template_name, {
+            'post': post,
+            'model_name': post.__class__.__name__,
+            'liked': liked,
+            'total_likes': total_likes,
+        })
 
     def post(self, request, user_id, post_id):
         pass
