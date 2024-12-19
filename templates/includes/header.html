@@ -10,7 +10,8 @@
                                 <div class="header-info-left d-flex align-items-center">
 
                                     <div class="logo">
-                                        <a href="{% url 'home:home' %}"><img src='{% static "img/logo/logo.png" %}' alt=""></a>
+                                        <a href="{% url 'home:home' %}"><img src='{% static "img/logo/logo.png" %}'
+                                                                             alt=""></a>
                                     </div>
 
                                     <form action="#" class="form-box">
@@ -29,9 +30,11 @@
                                             <a href="cart.html"><img src='{% static "img/icon/cart.svg" %}' alt=""></a>
                                         </li>
                                         {% if request.user.is_authenticated %}
-                                            <li><a href="{% url 'accounts:profile' request.user.id %}" class="btn header-btn">پروفایل</a></li>
+                                            <li><a href="{% url 'accounts:profile' request.user.id %}"
+                                                   class="btn header-btn">پروفایل</a></li>
                                         {% else %}
-                                            <li><a href="{% url 'accounts:login' %}" class="btn header-btn">ورود</a></li>
+                                            <li><a href="{% url 'accounts:login' %}" class="btn header-btn">ورود</a>
+                                            </li>
                                         {% endif %}
 
                                     </ul>
@@ -44,7 +47,9 @@
             <div class="header-bottom  header-sticky">
                 <div class="container">
                     <div class="row align-items-center">
-                        {% include 'includes/messages.html' %}
+                        <div class="text-center">
+                            {% include 'includes/messages.html' %}
+                        </div>
                         <div class="col-xl-12">
 
                             <div class="logo2">
