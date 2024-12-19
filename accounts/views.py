@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.contenttypes.models import ContentType
 from django.utils.encoding import force_str
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.http import urlsafe_base64_decode
@@ -9,6 +10,8 @@ from utils import email_registration_code
 from .tokens import account_activation_token
 from .models import User, Relation, Post
 from django.contrib.auth.mixins import LoginRequiredMixin
+from home.models import Like, Comment
+from home.forms import CommentForm, CommentReplyForm, LikeForm
 
 
 # SignUp
@@ -156,8 +159,6 @@ class ProfileView(View):
 
     def post(self, request, *args, **kwargs):
         post_form = self.form_class(request.POST)
-        print(post_form)
-        print('hi')
         if post_form.is_valid():
             post = post_form.save(commit=False)
             post.user = request.user
@@ -188,7 +189,7 @@ class EditProfileView(LoginRequiredMixin, View):
         return render(request, self.templates_name, context=context)
 
     def post(self, request, *args, **kwargs):
-        user = User.objects.get(pk=self.user)
+        user = User.objects.get(pk=self.user.id)
         form = self.form_class(request.POST, request.FILES, instance=request.user.profile)
         context = {'form': form, 'user':user}
         if form.is_valid():
@@ -230,5 +231,42 @@ class UnFollowView(LoginRequiredMixin, View):
         return redirect('accounts:profile', user_id)
 
 
+class PostDetailView(View):
+    template_name = 'accounts/post_detail.html'
+    form_class = CommentForm
+    form_class_reply = CommentReplyForm
+    form_class_like = LikeForm
+    # form_class_like_comment = LikeCommentForm
 
+    def setup(self, request, *args, **kwargs):
+        self.user = User.objects.get(id=kwargs['user_id'])
+        self.post = get_object_or_404(Post, user=self.user, id=kwargs['post_id'])
+        self.comments = Comment.objects.filter(
+            content_type=ContentType.objects.get(model='post'),
+            object_id=self.post.id,
+            is_reply=False
+        )
+        super().setup(request, *args, **kwargs)
+
+    def get(self, request, user_id, post_id):
+        form = self.form_class()
+        form_reply = self.form_class_reply()
+        form_like = self.form_class_like()
+        # form_like_comment = self.form_class_like_comment()
+
+        post = self.post
+        liked = post.is_liked(request)
+        total_likes = post.get_total_likes()
+
+        return render(request, self.template_name, {
+            'post': self.post,
+            'model_name': 'post',
+            'liked': liked,
+            'total_likes': total_likes,
+            'comments': self.comments,
+            'form': form,
+            'form_reply': form_reply,
+            'form_like': form_like,
+            # 'form_like_comment': form_like_comment
+        })
 

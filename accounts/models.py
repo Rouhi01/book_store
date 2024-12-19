@@ -1,6 +1,10 @@
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.contrib.auth.models import AbstractUser, AbstractBaseUser
+from django.urls import reverse
 from .managers import UserManager
+from django.contrib.contenttypes.fields import GenericRelation
+from home.models import Like, Comment
 
 
 class User(AbstractBaseUser):
@@ -29,7 +33,6 @@ class User(AbstractBaseUser):
 
 
 class Profile(models.Model):
-
     GENDER_CHOICES = [
         ('', 'انتخاب جنسیت'),
         ('male', 'مرد'),
@@ -64,9 +67,42 @@ class Relation(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(User, models.CASCADE, related_name='posts')
+    title = models.CharField(max_length=120)
+    slug = models.SlugField(max_length=120)
     content = models.TextField()
+    tags = models.ManyToManyField('home.Tag', related_name='posts', blank=True)
+    likes = GenericRelation('home.Like')
+    comments = GenericRelation('home.Comment')
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-created_at']
+
+    def get_absolute_url(self):
+        return reverse('accounts:post_detail', args=[self.user.id, self.id])
+
+    def get_total_likes(self):
+        model_name = self.__class__.__name__.lower()
+        number_of_likes = Like.objects.filter(
+            content_type=ContentType.objects.get(model=model_name),
+            object_id=self.id
+        ).count()
+        return number_of_likes
+
+    def get_total_comments(self):
+        model_name = self.__class__.__name__.lower()
+        number_of_comment = Comment.objects.filter(
+            content_type=ContentType.objects.get(model=model_name),
+            object_id=self.id
+        ).count()
+        return number_of_comment
+
+    def is_liked(self, request):
+        model_name = self.__class__.__name__.lower()
+        liked = Like.objects.filter(
+            user=request.user,
+            content_type=ContentType.objects.get(model=model_name),
+            object_id=self.id
+        ).exists()
+        return liked

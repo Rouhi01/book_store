@@ -14,4 +14,6 @@ urlpatterns = [
 
     path('follow/<int:user_id>/', views.FollowView.as_view(), name='follow'),
     path('unfollow/<int:user_id>/', views.UnFollowView.as_view(), name='unfollow'),
+
+    path('post_detail/<int:user_id>/<int:post_id>/', views.PostDetailView.as_view(), name='post_detail')
 ]

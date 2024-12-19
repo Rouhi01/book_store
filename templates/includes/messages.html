@@ -1,9 +1,36 @@
 {% if messages %}
 <div>
     {% for message in messages %}
-    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" style="position: relative; padding: 10px; border: 1px solid #ccc; border-radius: 4px; margin: 5px 0;">
         {{ message }}
+        <span class="close-btn" style="position: absolute; top: 5px; right: 10px; cursor: pointer; font-weight: bold;">&times;</span>
     </div>
     {% endfor %}
 </div>
+<script>
+    // پس از بارگذاری کامل صفحه
+    document.addEventListener("DOMContentLoaded", function() {
+        // پیدا کردن تمامی پیام‌ها
+        const alerts = document.querySelectorAll('.alert');
+
+        // حذف خودکار پیام‌ها پس از ۵ ثانیه
+        alerts.forEach(function(alert) {
+            const closeButton = alert.querySelector('.close-btn');
+
+            // حذف با کلیک روی ضربدر
+            closeButton.addEventListener('click', function() {
+                alert.style.transition = "opacity 0.5s ease";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500); // حذف از DOM
+            });
+
+            // حذف خودکار
+            setTimeout(function() {
+                alert.style.transition = "opacity 0.5s ease";
+                alert.style.opacity = "0";
+                setTimeout(() => alert.remove(), 500); // حذف از DOM
+            }, 5000);
+        });
+    });
+</script>
 {% endif %}

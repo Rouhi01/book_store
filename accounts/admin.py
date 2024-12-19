@@ -36,7 +36,12 @@ class UserAdmin(BaseUserAdmin):
     inlines = [ProfileInline]
 
 
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ['title']}
+
+
 admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(Relation)
-admin.site.register(Post)
+

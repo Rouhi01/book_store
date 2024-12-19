@@ -23,9 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
     'store.apps.StoreConfig',
-    'accounts.apps.AccountsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,4 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
