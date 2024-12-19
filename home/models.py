@@ -1,8 +1,9 @@
 
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 
 class Comment(models.Model):
@@ -12,13 +13,19 @@ class Comment(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    GenericRelation('home.like')
+
     reply = models.ForeignKey('Comment', on_delete=models.CASCADE, related_name='rcomments', blank=True, null=True)
     is_reply = models.BooleanField(default=False)
     body = models.TextField(max_length=400)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_model_name(self):
-        return self.content_type.model_class().__name__
+        return self.content_type.model_class().__name__.lower()
+
+    def get_absolute_url(self):
+        return reverse('home:comment', args=[self.user.id, 'Comment', self.id])
+
 
 
 class Tag(models.Model):
@@ -35,6 +42,16 @@ class Like(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    # parent_content_type = models.ForeignKey(
+    #     ContentType,
+    #     on_delete=models.CASCADE,
+    #     null=True,
+    #     blank=True,
+    #     related_name='parent_likes'
+    # )
+    # parent_object_id = models.PositiveIntegerField(null=True, blank=True)
+    # parent_object = GenericForeignKey('parent_content_type', 'parent_object_id')
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -42,3 +59,5 @@ class Like(models.Model):
 
     def __str__(self):
         return f'{self.user} liked {self.content_type}'
+
+

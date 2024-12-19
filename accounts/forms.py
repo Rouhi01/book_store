@@ -95,11 +95,16 @@ class EditProfileForm(forms.ModelForm):
 class ProfilePostForm(forms.ModelForm):
     class Meta:
         model= Post
-        fields= ['content']
+        fields= ['content', 'title']
         widgets = {
             'content': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'پست کنید...',
                 'rows': 3,
             }),
+            'title': forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'عنوان پست ...',
+                'rows': 1
+            })
         }

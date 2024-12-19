@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from django.urls import reverse
 from .managers import UserManager
 from django.contrib.contenttypes.fields import GenericRelation
-from home.models import Like
+from home.models import Like, Comment
 
 
 class User(AbstractBaseUser):
@@ -89,6 +89,14 @@ class Post(models.Model):
             object_id=self.id
         ).count()
         return number_of_likes
+
+    def get_total_comments(self):
+        model_name = self.__class__.__name__.lower()
+        number_of_comment = Comment.objects.filter(
+            content_type=ContentType.objects.get(model=model_name),
+            object_id=self.id
+        ).count()
+        return number_of_comment
 
     def is_liked(self, request):
         model_name = self.__class__.__name__.lower()
