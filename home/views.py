@@ -117,10 +117,10 @@ class CommentView(LoginRequiredMixin, View):
     form_class = CommentForm
 
     @method_decorator(login_required)
-    def post(self, request, user_id, model_name, object_id):
+    def post(self, request, user_id, model_name, object_id, app_name):
         form = self.form_class(request.POST)
 
-        content_type = ContentType.objects.get(model=model_name)
+        content_type = ContentType.objects.get(model=model_name, app_label=app_name)
         model = content_type.model_class()
         obj = get_object_or_404(model, id=object_id)
         user = User.objects.get(id=user_id)
@@ -139,10 +139,10 @@ class CommentReplyView(LoginRequiredMixin, View):
     form_class = CommentReplyForm
 
     @method_decorator(login_required)
-    def post(self, request, user_id, model_name, object_id, comment_id):
+    def post(self, request, user_id, model_name, object_id, comment_id, app_name):
         form = self.form_class(request.POST)
 
-        content_type = ContentType.objects.get(model=model_name)
+        content_type = ContentType.objects.get(model=model_name, app_label=app_name)
         model = content_type.model_class()
         obj = get_object_or_404(model, id=object_id)
         user = User.objects.get(id=user_id)

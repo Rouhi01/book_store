@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% load static %}
 {% block content %}
-
     <main>
 
         <div class="breadcrumb-items">
@@ -12,49 +12,56 @@
                     </li>
                     <li class="chevron"><span class="fa fa-chevron-left"></span></li>
                     <li>
-                        <span class="breadcrumb-active">جزئیات پست</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'literature:authors' %}" class="breadcrumb-link">نویسندگان</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">جزئیات نویسنده</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="single-blog">
+        <div class="single-author">
             <div class="container">
                 <div class="row">
-                    <div class="col-l-12">
+                    <div class="col-xl-12">
 
-                        <div class="single-blog-row d-flex justify-content-center mb-0" style="text-align: center">
-                            <div class="blog-caption">
-                                <div class="blog-title">
-                                    <h1>{{ post.title }}</h1>
+                        <div class="single-author-row d-flex align-items-center mb-0">
+                            <div class="single-author-img">
+                                <img src="{{ author.picture.url }}" alt="">
+                            </div>
+                            <div class="author-caption">
+                                <div class="author-title">
+                                    <h1>آشنایی با نویسنده</h1>
                                 </div>
-                                <div class="meta d-flex flex-column" style="text-align: center">
-                                    <p>نویسنده مقاله: <a href="#" target="_self">{{ post.user }}</a></p>
-                                    <p>تاریخ انتشار:<span>{{ post.created_at|date:'d/m/y' }}</span></p>
+                                <div class="meta">
+                                    <p>نویسنده: <span>{{ author.full_name }}</span></p>
+                                    <p>زمینه نویسندگی:<a href="" target="_self">
+                                        {% for field in author.field_of_writing.all %}
+                                            <a href="" target="_self">{{ field.name }}</a>
+                                        {% empty %}
+                                            نامشخص
+                                        {% endfor %}
+                                    </a></p>
+                                    <p class="job">پیشه:
+                                        {% for profession in author.profession.all %}
+                                            <a href="" target="_self">{{ profession.name }}</a>
+                                        {% empty %}
+                                            نامشخص
+                                        {% endfor %}
+                                    </p>
+                                    <p>ملیت:
+                                        {% for n in author.nationality.all %}
+                                            <a href="" target="_self">{{ n.name }}</a>
+                                        {% empty %}
+                                            نامشخص
+                                        {% endfor %}
+                                    </p>
                                 </div>
-                                {% if request.user.is_authenticated %}
-                                    <div class="blog-btn">
-                                        {% if liked %}
-                                            <form action="{% url 'home:like' 'post' post.id %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="white-btn mr-10"
-                                                        style="background-color: #00a4a6; color: white">
-                                                    عدم پسندیدن
-                                                    <span style="margin-right: 5px">{{ total_likes }}</span>
-                                                </button>
-                                            </form>
 
-                                        {% else %}
-                                            <form action="{% url 'home:like' model_name post.id %}" method="post">
-                                                {% csrf_token %}
-                                                <button type="submit" class="white-btn mr-10">
-                                                    پسندیدن
-                                                    <span style="margin-right: 5px">{{ total_likes }}</span>
-                                                </button>
-                                            </form>
-                                        {% endif %}
-                                    </div>
-                                {% endif %}
                             </div>
                         </div>
 
@@ -69,31 +76,26 @@
                 <div class="row">
                     <div class="offset-xl-1 col-xl-10">
                         <div class="nav-button f-right">
-
                             <nav>
                                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                                     <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
-                                       role="tab" aria-controls="nav-one" aria-selected="true">متن مقاله</a>
+                                       role="tab" aria-controls="nav-one" aria-selected="true">بیوگرافی نویسنده</a>
                                     <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four"
-                                       role="tab" aria-controls="nav-four" aria-selected="false">
-                                        نظرات
-                                        {{ post.get_total_comments }}
-                                    </a>
+                                       role="tab" aria-controls="nav-four" aria-selected="false">نظرات</a>
                                 </div>
                             </nav>
-
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container">
 
+            <div class="container">
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
 
                         <div class="row">
                             <div class="desc-tab offset-xl-1 col-lg-9">
-                                <p>{{ post.content }}</p>
+                                <p>{{ author.biography }}</p>
                             </div>
                         </div>
                     </div>
@@ -104,12 +106,12 @@
                                 <div class="container bootdey">
                                     <div class="col-md-12 bootstrap snippets">
 
-
                                         {% if request.user.is_authenticated %}
                                             <div class="panel">
                                                 <div class="panel-body">
-                                                    <form action="{% url 'home:comment' request.user.id model_name post.id app_name%}"
-                                                          method="post" novalidate>
+                                                    <form action="{% url 'home:comment' request.user.id model_name author.id app_name %}"
+                                                          method="post"
+                                                          novalidate>
                                                         {% csrf_token %}
                                                         {{ form.body }}
                                                         <div class="mar-top clearfix">
@@ -123,10 +125,9 @@
                                             </div>
                                         {% endif %}
 
+
                                         <div class="panel">
                                             <div class="panel-body">
-                                                <!-- Newsfeed Content -->
-                                                <!--===================================================-->
                                                 {% for comment in comments %}
                                                     <div class="media-block">
                                                         <a class="media-right"
@@ -164,40 +165,40 @@
                                                             </div>
                                                             <p>{{ comment.body }}</p>
                                                             <div class="pad-ver d-flex">
-{#                                                                <div class="btn-group">#}
-{#                                                                    {% if liked %}#}
-{#                                                                        <form action="{% url 'home:like_comment' 'comment' comment.id 'post' post.id %}"#}
-{#                                                                              method="post">#}
-{#                                                                            {% csrf_token %}#}
-{#                                                                            <button type="submit"#}
-{#                                                                                    class="btn btn-sm btn-default btn-hover-success"#}
-{#                                                                                    style="background-color: #00a4a6!important;#}
-{#                                                                                    color: white">#}
-{#                                                                                <i#}
-{#                                                                                        class="fa fa-thumbs-up"></i>#}
-{#                                                                                <span>1</span>#}
-{#                                                                            </button>#}
-{#                                                                        </form>#}
-{##}
-{#                                                                    {% else %}#}
-{#                                                                        <form action="{% url 'home:like_comment' 'comment' comment.id 'post' post.id %}"#}
-{#                                                                              method="post">#}
-{#                                                                            {% csrf_token %}#}
-{#                                                                            <button type="submit"#}
-{#                                                                                    class="btn btn-sm btn-default btn-hover-success active">#}
-{#                                                                                <i#}
-{#                                                                                        class="fa fa-thumbs-up"></i>#}
-{#                                                                                <span>1</span>#}
-{#                                                                            </button>#}
-{#                                                                        </form>#}
-{#                                                                    {% endif %}#}
-{#                                                                </div>#}
+                                                                {#                                                                <div class="btn-group">#}
+                                                                {#                                                                    {% if liked %}#}
+                                                                {#                                                                        <form action="{% url 'home:like_comment' 'comment' comment.id 'post' post.id %}"#}
+                                                                {#                                                                              method="post">#}
+                                                                {#                                                                            {% csrf_token %}#}
+                                                                {#                                                                            <button type="submit"#}
+                                                                {#                                                                                    class="btn btn-sm btn-default btn-hover-success"#}
+                                                                {#                                                                                    style="background-color: #00a4a6!important;#}
+                                                                {#                                                                                    color: white">#}
+                                                                {#                                                                                <i#}
+                                                                {#                                                                                        class="fa fa-thumbs-up"></i>#}
+                                                                {#                                                                                <span>1</span>#}
+                                                                {#                                                                            </button>#}
+                                                                {#                                                                        </form>#}
+                                                                {##}
+                                                                {#                                                                    {% else %}#}
+                                                                {#                                                                        <form action="{% url 'home:like_comment' 'comment' comment.id 'post' post.id %}"#}
+                                                                {#                                                                              method="post">#}
+                                                                {#                                                                            {% csrf_token %}#}
+                                                                {#                                                                            <button type="submit"#}
+                                                                {#                                                                                    class="btn btn-sm btn-default btn-hover-success active">#}
+                                                                {#                                                                                <i#}
+                                                                {#                                                                                        class="fa fa-thumbs-up"></i>#}
+                                                                {#                                                                                <span>1</span>#}
+                                                                {#                                                                            </button>#}
+                                                                {#                                                                        </form>#}
+                                                                {#                                                                    {% endif %}#}
+                                                                {#                                                                </div>#}
                                                                 <a class="btn btn-sm btn-default btn-hover-primary reply-btn"
                                                                    href="javascript:void(0)">پاسخ</a>
                                                             </div>
 
                                                             <!-- فرم ریپلای -->
-                                                            <form action="{% url 'home:comment_reply' request.user.id model_name post.id comment.id app_name %}"
+                                                            <form action="{% url 'home:comment_reply' request.user.id model_name author.id comment.id app_name %}"
                                                                   method="post" novalidate>
                                                                 {% csrf_token %}
                                                                 <div class="reply-form"
@@ -298,6 +299,10 @@
                                                         </div>
                                                     </section>
                                                 {% endfor %}
+
+                                                <!-- Newsfeed Content -->
+                                                <!--===================================================-->
+
                                                 <!--===================================================-->
                                                 <!-- End Newsfeed Content -->
                                             </div>
@@ -311,32 +316,104 @@
             </div>
         </section>
 
-        <section class="blog-meta">
+        <section class="author-books section-bg">
             <div class="container">
-                <div class="tag">
-                    <p>برچسب:</p>
-                    {% for tag in post.tags.all %}
-                        <a href="#" target="_self"><span>#</span>{{ tag.name }}</a>
-                    {% empty %}
-                        <span>بدون برچسب!</span>
-                    {% endfor %}
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55" id="books">
+                            <h2>کتاب های این نویسنده</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="author-books-box slick-initialized slick-slider slick-dotted">
+                                <div class="slick-list draggable">
+                                    <div class="slick-track" style="opacity: 1;">
+
+                                        {% for book in author.abooks.all %}
+                                            <div class="properties pb-20 slick-slide" style="width: 244px;"
+                                                 tabindex="-1" role="tabpanel"
+                                                 aria-describedby="slick-slide-control{{ forloop.counter }}"
+                                                 data-slick-index="{{ forloop.counter }}" aria-hidden="false">
+                                                <div class="properties-card">
+                                                    <div class="properties-img">
+                                                        <a href="" tabindex="0">
+                                                            <img src="{{ book.cover_image.url }}"
+                                                                 alt="{{ book.title }}" class="img-fluid">
+                                                        </a>
+                                                    </div>
+                                                    <div class="properties-caption">
+                                                        <h3>
+                                                            <a href=""
+                                                               tabindex="0">{{ book.title }}
+                                                            </a>
+                                                        </h3>
+                                                        <div class="properties-footer">
+                                                            <div class="review">
+                                                                <div class="rating">
+                                                                    <!-- ستاره‌ها به‌صورت دستی یا داینامیک بسته به داده‌ها -->
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star-half-alt"></i>
+                                                                </div>
+                                                                <p>(<span>{{ book.reviews_count|default:0 }}</span> نظر)
+                                                                </p>
+                                                            </div>
+                                                            <div class="price">
+                                                                <p>{{ book.price }}<span>تومان</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% empty %}
+                                            hi
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                                <ul class="slick-dots" style="display: block;" role="tablist">
+                                    {% for book in author.abooks.all %}
+                                        <li class="{% if forloop.first %}slick-active{% endif %}" role="presentation">
+                                            <button type="button" role="tab"
+                                                    id="slick-slide-control{{ forloop.counter }}"
+                                                    aria-controls="slick-slide{{ forloop.counter }}"
+                                                    aria-label="{{ forloop.counter }} of {{ books|length }}"
+                                                    tabindex="0"
+                                                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                                                {{ forloop.counter }}
+                                            </button>
+                                        </li>
+                                    {% empty %}
+                                        hi
+                                    {% endfor %}
+                                </ul>
+
+                                <div class="author-btn">
+                                    <a href="#books" class="white-btn mr-10">کتاب های نویسنده</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <script>
-            // اضافه کردن رویداد کلیک به دکمه پاسخ
-            document.querySelectorAll('.reply-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    // یافتن فرم مرتبط با دکمه
-                    const replyForm = this.closest('.pad-ver').nextElementSibling.querySelector('.reply-form');
-                    if (replyForm.style.display === 'none' || replyForm.style.display === '') {
-                        replyForm.style.display = 'block'; // نمایش فرم
-                    } else {
-                        replyForm.style.display = 'none'; // مخفی کردن فرم
-                    }
-                });
-            });
-        </script>
-
     </main>
+    <script>
+        // اضافه کردن رویداد کلیک به دکمه پاسخ
+        document.querySelectorAll('.reply-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                // یافتن فرم مرتبط با دکمه
+                const replyForm = this.closest('.pad-ver').nextElementSibling.querySelector('.reply-form');
+                if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+                    replyForm.style.display = 'block'; // نمایش فرم
+                } else {
+                    replyForm.style.display = 'none'; // مخفی کردن فرم
+                }
+            });
+        });
+    </script>
 {% endblock %}

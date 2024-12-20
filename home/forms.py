@@ -9,7 +9,7 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'body': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'نظر شما در مورد این پست چیست؟',
+                'placeholder': 'نظر شما چیست؟',
                 'rows': 2,
             })
         }
