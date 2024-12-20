@@ -4,7 +4,7 @@ from django.views import View
 
 from home.forms import CommentForm, CommentReplyForm
 from home.models import Comment
-from .models import Author, Book
+from .models import Author, Book, Publisher
 
 
 class AuthorsView(View):
@@ -40,6 +40,44 @@ class AuthorDetailView(View):
             'comments': comments,
             'model_name': 'author',
             'app_name': 'literature'
+        }
+
+        return render(request, self.template_name, context)
+
+
+class PublisherView(View):
+    template_name = 'literature/publishers.html'
+    form_class = ''
+
+    def get(self, request):
+        publishers = Publisher.objects.all()
+        return render(request, self.template_name, {'publishers': publishers})
+
+
+class PublisherDetailView(View):
+    template_name = 'literature/publisher_detail.html'
+    form_class = CommentForm
+    form_class_reply = CommentReplyForm
+
+    def get(self, request, publisher_id):
+        form = self.form_class()
+        form_reply = self.form_class_reply()
+
+        publisher = get_object_or_404(Publisher, id=publisher_id)
+
+        comments = Comment.objects.filter(
+            content_type=ContentType.objects.get(model='publisher', app_label='literature'),
+            object_id=publisher.id,
+            is_reply=False,
+        )
+
+        context = {
+            'form': form,
+            'form_reply': form_reply,
+            'publisher': publisher,
+            'comments': comments,
+            'model_name': 'publisher',
+            'app_label': 'literature'
         }
 
         return render(request, self.template_name, context)

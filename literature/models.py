@@ -64,10 +64,14 @@ class Publisher(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     picture = models.ImageField(upload_to='publisher_picture/', blank=True, null=True)
+    date_establishment = models.DateField(blank=True, null=True)
     comment = GenericRelation('home.Comment')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('literature:publisher_detail', args=[self.id])
 
 
 class Language(models.Model):

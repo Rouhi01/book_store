@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load widget_tweaks %}
 {% load static %}
 {% block content %}
     <main>
@@ -14,54 +13,37 @@
                     <li>
                     </li>
                     <li>
-                        <a href="{% url 'literature:authors' %}" class="breadcrumb-link">نویسندگان</a>
+                        <a href="{% url 'literature:publishers' %}" class="breadcrumb-link">انتشارات</a>
                     </li>
                     <li class="chevron"><span class="fa fa-chevron-left"></span></li>
                     <li>
-                        <span class="breadcrumb-active">جزئیات نویسنده</span>
+                        <span class="breadcrumb-active">جزئیات ناشر</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="single-author">
+        <div class="single-publisher">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
 
-                        <div class="single-author-row d-flex align-items-center mb-0">
-                            <div class="single-author-img">
-                                <img src="{{ author.picture.url }}" alt="">
+                        <div class="single-publisher-row d-flex align-items-center mb-0">
+                            <div class="single-publisher-img">
+                                <img src="{{ publisher.picture.url }}" alt="">
                             </div>
-                            <div class="author-caption">
-                                <div class="author-title">
-                                    <h1>آشنایی با نویسنده</h1>
+                            <div class="publisher-caption">
+                                <div class="publisher-title">
+                                    <h1>آشنایی با ناشر</h1>
                                 </div>
                                 <div class="meta">
-                                    <p>نویسنده: <span>{{ author.full_name }}</span></p>
-                                    <p>زمینه نویسندگی:<a href="" target="_self">
-                                        {% for field in author.field_of_writing.all %}
-                                            <a href="" target="_self">{{ field.name }}</a>
-                                        {% empty %}
-                                            نامشخص
-                                        {% endfor %}
-                                    </a></p>
-                                    <p class="job">پیشه:
-                                        {% for profession in author.profession.all %}
-                                            <a href="" target="_self">{{ profession.name }}</a>
-                                        {% empty %}
-                                            نامشخص
-                                        {% endfor %}
-                                    </p>
-                                    <p>ملیت:
-                                        {% for n in author.nationality.all %}
-                                            <a href="" target="_self">{{ n.name }}</a>
-                                        {% empty %}
-                                            نامشخص
-                                        {% endfor %}
-                                    </p>
+                                    <p>نام ناشر: <span>{{ publisher.name }}</span></p>
+                                    <p>تعداد کتب در این سایت:<a href="" target="_self">{{ publisher.pbooks.all.count }}
+                                        کتاب</a></p>
                                 </div>
-
+                                <div class="publisher-btn">
+                                    <a href="#books" class="white-btn mr-10">کتاب های این ناشر</a>
+                                </div>
                             </div>
                         </div>
 
@@ -79,7 +61,7 @@
                             <nav>
                                 <div class="nav nav-tabs " id="nav-tab" role="tablist">
                                     <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
-                                       role="tab" aria-controls="nav-one" aria-selected="true">بیوگرافی نویسنده</a>
+                                       role="tab" aria-controls="nav-one" aria-selected="true">اطلاعات ناشر</a>
                                     <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four"
                                        role="tab" aria-controls="nav-four" aria-selected="false">نظرات</a>
                                 </div>
@@ -95,7 +77,7 @@
 
                         <div class="row">
                             <div class="desc-tab offset-xl-1 col-lg-9">
-                                <p>{{ author.biography }}</p>
+                                <p>{{ publisher.description }}</p>
                             </div>
                         </div>
                     </div>
@@ -105,11 +87,10 @@
                             <div class="comment-tab offset-xl-1 col-lg-9">
                                 <div class="container bootdey">
                                     <div class="col-md-12 bootstrap snippets">
-
                                         {% if request.user.is_authenticated %}
                                             <div class="panel">
                                                 <div class="panel-body">
-                                                    <form action="{% url 'home:comment' request.user.id model_name author.id app_name %}"
+                                                    <form action="{% url 'home:comment' request.user.id model_name publisher.id app_label %}"
                                                           method="post"
                                                           novalidate>
                                                         {% csrf_token %}
@@ -124,10 +105,10 @@
                                                 </div>
                                             </div>
                                         {% endif %}
-
-
                                         <div class="panel">
                                             <div class="panel-body">
+                                                <!-- Newsfeed Content -->
+                                                <!--===================================================-->
                                                 {% for comment in comments %}
                                                     <div class="media-block">
                                                         <a class="media-right"
@@ -198,7 +179,7 @@
                                                             </div>
 
                                                             <!-- فرم ریپلای -->
-                                                            <form action="{% url 'home:comment_reply' request.user.id model_name author.id comment.id app_name %}"
+                                                            <form action="{% url 'home:comment_reply' request.user.id model_name publisher.id comment.id app_label %}"
                                                                   method="post" novalidate>
                                                                 {% csrf_token %}
                                                                 <div class="reply-form"
@@ -299,6 +280,8 @@
                                                         </div>
                                                     </section>
                                                 {% endfor %}
+                                                <!--===================================================-->
+                                                <!-- End Newsfeed Content -->
                                             </div>
                                         </div>
                                     </div>
@@ -315,7 +298,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
                         <div class="section-tittle text-center mb-55" id="books">
-                            <h2>کتاب های این نویسنده</h2>
+                            <h2>کتاب های این ناشر</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -324,7 +307,7 @@
                                 <div class="slick-list draggable">
                                     <div class="slick-track" style="opacity: 1;">
 
-                                        {% for book in author.abooks.all %}
+                                        {% for book in publisher.pbooks.all %}
                                             <div class="properties pb-20 slick-slide" style="width: 244px;"
                                                  tabindex="-1" role="tabpanel"
                                                  aria-describedby="slick-slide-control{{ forloop.counter }}"
@@ -386,7 +369,7 @@
                                 </ul>
 
                                 <div class="author-btn">
-                                    <a href="#books" class="white-btn mr-10">کتاب های نویسنده</a>
+                                    <a href="#books" class="white-btn mr-10">کتاب های ناشر</a>
                                 </div>
 
                             </div>
@@ -395,6 +378,7 @@
                 </div>
             </div>
         </section>
+
     </main>
     <script>
         // اضافه کردن رویداد کلیک به دکمه پاسخ
