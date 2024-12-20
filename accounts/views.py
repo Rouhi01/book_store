@@ -13,7 +13,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from home.models import Like, Comment
 from home.forms import CommentForm, CommentReplyForm, LikeForm
 
-
 # SignUp
 class Signup(View):
     template_name = 'accounts/signup.html'
@@ -242,7 +241,7 @@ class PostDetailView(View):
         self.user = User.objects.get(id=kwargs['user_id'])
         self.post = get_object_or_404(Post, user=self.user, id=kwargs['post_id'])
         self.comments = Comment.objects.filter(
-            content_type=ContentType.objects.get(model='post'),
+            content_type=ContentType.objects.get(model='post', app_label='accounts'),
             object_id=self.post.id,
             is_reply=False
         )
@@ -267,6 +266,7 @@ class PostDetailView(View):
             'form': form,
             'form_reply': form_reply,
             'form_like': form_like,
+            'app_name': 'accounts'
             # 'form_like_comment': form_like_comment
         })
 

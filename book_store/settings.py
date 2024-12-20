@@ -26,6 +26,10 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
     'store.apps.StoreConfig',
+    'literature.apps.CreatorConfig',
+
+    # Third-party library
+    'widget_tweaks'
 
 ]
 

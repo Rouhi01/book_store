@@ -27,7 +27,6 @@ class Comment(models.Model):
         return reverse('home:comment', args=[self.user.id, 'Comment', self.id])
 
 
-
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
 
