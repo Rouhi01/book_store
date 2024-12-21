@@ -4,7 +4,7 @@ from django.views import View
 
 from home.forms import CommentForm, CommentReplyForm
 from home.models import Comment
-from .models import Author, Book, Publisher
+from .models import Author, Book, Publisher, Translator
 
 
 class AuthorsView(View):
@@ -77,6 +77,44 @@ class PublisherDetailView(View):
             'publisher': publisher,
             'comments': comments,
             'model_name': 'publisher',
+            'app_label': 'literature'
+        }
+
+        return render(request, self.template_name, context)
+
+
+class TranslatorsView(View):
+    template_name = 'literature/translators.html'
+    form_class = ''
+
+    def get(self, request):
+        translators = Translator.objects.all()
+        return render(request, template_name=self.template_name, context={'translators': translators})
+
+
+class TranslatorDetailView(View):
+    template_name = 'literature/translator_detail.html'
+    form_class = CommentForm
+    form_class_reply = CommentReplyForm
+
+    def get(self, request, translator_id):
+        form = self.form_class()
+        form_reply = self.form_class_reply()
+
+        translator = get_object_or_404(Translator, id=translator_id)
+
+        comments = Comment.objects.filter(
+            content_type=ContentType.objects.get(model='translator', app_label='literature'),
+            object_id=translator.id,
+            is_reply=False,
+        )
+
+        context = {
+            'form': form,
+            'form_reply': form_reply,
+            'translator': translator,
+            'comments': comments,
+            'model_name': 'translator',
             'app_label': 'literature'
         }
 
