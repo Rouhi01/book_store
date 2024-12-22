@@ -261,17 +261,21 @@
                                             </div>
                                         </div>
                                     {% empty %}
-                                        <p>متاسفانه کتابی جهت نمایش وجود دارد</p>
+                                        <p class="text-center" style="margin-top: 100px">
+                                            متاسفانه کتابی جهت نمایش وجود دارد
+                                        </p>
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="row">
+                            {% if books %}
+                            	<div class="row">
                                 <div class="col-xl-12">
                                     <div class="more-btn text-center mt-15">
                                         <a href="#" class="border-btn border-btn2 more-btn2">مشاهده کتب بیشتر</a>
                                     </div>
                                 </div>
                             </div>
+                            {% endif %}
                         </div>
 
                     </div>

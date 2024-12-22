@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load book_extras %}
 {% block content %}
     <main>
 
@@ -70,57 +71,20 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="categories-active">
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/tarikhi.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب تاریخی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/amozeshi.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب آموزشی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/dastani.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب رمان و داستان</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/kasbokar.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب کسب و کار</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/mazhabi.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب مذهبی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/music.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب موسیقی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/pezeshki.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب پزشکی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/ravanshenasi.jpg" %}'
-                                                                                    alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب روانشناسی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/siasi.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب سیاسی</a>
-                            </div>
-                            <div class="category-item">
-                                <a href="categories.html" class="category-img"><img src='{% static "img/cat/varzeshi.jpg" %}' alt=""
-                                                                                    loading="lazy"></a>
-                                <a class="category-caption" href="categories.html">کتب ورزشی</a>
-                            </div>
+                            {% for category in categories %}
+                                <div class="category-item">
+                                    <a href="{% url 'literature:books' %}?category={{ category.id }}"
+                                       class="category-img">
+                                        <img src='{% static "img/cat/tarikhi.jpg" %}'
+                                             alt=""
+                                             loading="lazy">
+                                    </a>
+                                    <a class="category-caption"
+                                       href="{% url 'literature:books' %}?category={{ category.id }}">{{ category.name }}</a>
+                                </div>
+                            {% endfor %}
+
+
                         </div>
                     </div>
                 </div>
@@ -144,7 +108,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src='{% static "img/book/best_selling1.jpg" %}' alt=""></a>
+                                        <a href="book-details.html"><img src='{% static "img/book/best_selling1.jpg" %}'
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">هستی</a></h3>
@@ -171,7 +136,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src='{% static "img/book/best_selling2.jpg" %}' alt=""></a>
+                                        <a href="book-details.html"><img src='{% static "img/book/best_selling2.jpg" %}'
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">پاستیل های بنفش</a></h3>
@@ -198,7 +164,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src='{% static "img/book/best_selling3.jpg" %}' alt=""></a>
+                                        <a href="book-details.html"><img src='{% static "img/book/best_selling3.jpg" %}'
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">اثر مرکب</a></h3>
@@ -225,7 +192,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src='{% static "img/book/best_selling4.jpg" %}' alt=""></a>
+                                        <a href="book-details.html"><img src='{% static "img/book/best_selling4.jpg" %}'
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
@@ -252,7 +220,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src='{% static "img/book/best_selling5.jpg" %}' alt=""></a>
+                                        <a href="book-details.html"><img src='{% static "img/book/best_selling5.jpg" %}'
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">مجموعه کتب جلال آل احمد</a></h3>
@@ -279,7 +248,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src='{% static "img/book/best_selling6.jpg" %}' alt=""></a>
+                                        <a href="book-details.html"><img src='{% static "img/book/best_selling6.jpg" %}'
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">کیمیاگر</a></h3>
@@ -306,7 +276,8 @@
                             <div class="properties pb-20">
                                 <div class="properties-card">
                                     <div class="properties-img">
-                                        <a href="book-details.html"><img src="{% static "img/book/best_selling4.jpg" %}" alt=""></a>
+                                        <a href="book-details.html"><img src="{% static "img/book/best_selling4.jpg" %}"
+                                                                         alt=""></a>
                                     </div>
                                     <div class="properties-caption">
                                         <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
@@ -345,7 +316,8 @@
                             <div class="col-xl-12">
                                 <div class="section-tittle d-flex justify-content-between align-items-center mb-40">
                                     <div class="title-area2">
-                                        <img src="{% static 'img/icon/book-open-reader-solid.svg' %}" class="book-icon"/>
+                                        <img src="{% static 'img/icon/book-open-reader-solid.svg' %}"
+                                             class="book-icon"/>
                                         <h2 class="mb-0">کتابــ ویژه این هفته</h2>
                                     </div>
                                     <a href="#" class="browse-btn">مشاهده همه</a>
@@ -471,31 +443,20 @@
                             </div>
                             <hr>
                             <ul class="best-author-box">
-                                <li>
-                                    <img src="{% static 'img/author/woman-author-one.jpg' %}" alt="">
-                                    <p>باربارا دی آنجلیس</p>
-                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <img src="{% static 'img/author/woman-author-two.jpg' %}" alt="">
-                                    <p>ماریا شاون</p>
-                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <img src="{% static 'img/author/man-author-one.jpg' %}" alt="">
-                                    <p>رحیل ابراهیم</p>
-                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>
-                                </li>
-                                <li>
-                                    <img src="{% static 'img/author/man-author-two.jpg' %}" alt="">
-                                    <p>آدام اسمیت</p>
-                                    <a href="author-details.html"><i class="fa-solid fa-circle-chevron-left"></i></a>
-                                </li>
+                                {% for author in top_authors %}
+                                    <li>
+                                        <img src="{{ author.picture.url }}" alt="">
+                                        <p>{{ author.full_name }}</p>
+                                        <a href="{% url 'literature:author_detail' author.id %}"><i
+                                                class="fa-solid fa-circle-chevron-left"></i></a>
+                                    </li>
+                                {% endfor %}
+
                             </ul>
                             <hr>
                             <div class="best-author-footer">
-                                <a href="author.html">همه نویسندگان</a>
-                                <a href="author.html"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                                <a href="{% url 'literature:authors' %}">همه نویسندگان</a>
+                                <a href="{% url 'literature:authors' %}"><i class="fa-solid fa-circle-chevron-left"></i></a>
                             </div>
                         </div>
                     </div>
@@ -520,20 +481,13 @@
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
                                        role="tab" aria-controls="nav-one" aria-selected="true">همه</a>
-                                    <a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab"
-                                       aria-controls="nav-two" aria-selected="false">روانشناسی</a>
-                                    <a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three"
-                                       role="tab"
-                                       aria-controls="nav-three" aria-selected="false">کسب و کار</a>
-                                    <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four"
-                                       role="tab"
-                                       aria-controls="nav-four" aria-selected="false">رمان</a>
-                                    <a class="nav-link" id="nav-five-tab" data-bs-toggle="tab" href="#nav-five"
-                                       role="tab"
-                                       aria-controls="nav-five" aria-selected="false">تاریخ</a>
+                                    {% for category in categories %}
+                                        <a class="nav-link" id="nav-{{ category.id }}-tab" data-bs-toggle="tab"
+                                           href="#nav-{{ category.id }}" role="tab"
+                                           aria-controls="nav-two" aria-selected="false">{{ category.name }}</a>
+                                    {% endfor %}
                                 </div>
                             </nav>
-
                         </div>
                     </div>
                 </div>
@@ -544,943 +498,101 @@
                     <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
 
                         <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling7.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">بادام</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">سون وون پیونگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
+                            {% for book in latest_books %}
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="properties pb-30">
+                                        <div class="properties-card">
+                                            <div class="properties-img">
+                                                <a href="{% url 'literature:book_detail' book.id %}"><img
+                                                        src="{{ book.cover_image.url }}"
+                                                        alt=""></a>
+                                            </div>
+                                            <div class="properties-caption properties-caption2">
+                                                <h3>
+                                                    <a href="{% url 'literature:book_detail' book.id %}">{{ book.title }}</a>
+                                                </h3>
+                                                <p>نویسنده:<a href="#" target="_parent"
+                                                              class="author">{{ book.title }}</a>
+                                                </p>
+                                                <div
+                                                        class="properties-footer d-flex justify-content-between align-items-center">
+                                                    <div class="review">
+                                                        <div class="rating">
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star"></i>
+                                                            <i class="fas fa-star-half-alt"></i>
+                                                        </div>
+                                                        <p>(<span>20</span> نظر)</p>
                                                     </div>
-                                                    <p>(<span>20</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>160.000<span>تومان</span></p>
+                                                    <div class="price">
+                                                        <p>{{ book.price }}<span>تومان</span></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling8.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">رازهایی درباره مردان</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">باربارا دی آنجلیس</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>25</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>220.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling6.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کیمیاگر</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">پائولو کولینو</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>30</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>150.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling4.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">مت هیگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>30</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>80.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling9.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">حذف پول</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">بزرگمهر برخیده</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>22</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>95.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling2.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">پاستیل های بنفش</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">کاترین اپلیگت</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>80</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>280.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
+                    {% for category in categories %}
+                        {% get_latest_books_in_category category.name as books_in_category %}
+                        <div class="tab-pane fade" id="nav-{{ category.id }}" role="tabpanel"
+                             aria-labelledby="nav-{{ category.id }}-tab">
 
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling4.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">مت هیگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>12</span> نظر)</p>
+                            <div class="row">
+                                {% for book in books_in_category %}
+                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                        <div class="properties pb-30">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="{% url 'literature:book_detail' book.id %}"><img
+                                                            src="{{ book.cover_image.url }}"
+                                                            alt=""></a>
                                                 </div>
-                                                <div class="price">
-                                                    <p>80.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling9.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">حذف پول</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">بزرگمهر برخیده</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>20</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>150.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling2.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">پاستیل های بنفش</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">کاترین اپلیکت</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>36</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>220.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling7.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">بادام</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">سون وون پیونگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>12</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>170.500<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling8.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">رازهایی درباره مردان</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">باربارا دی آنجلیس</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>6</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>140.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling6.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کیمیاگر</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">پائولو کونیلو</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>10</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>180.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
+                                                <div class="properties-caption properties-caption2">
+                                                    <h3>
+                                                        <a href="{% url 'literature:book_detail' book.id %}">{{ book.title }}</a>
+                                                    </h3>
+                                                    <p>نویسنده:<a href="#" target="_parent" class="author">
+                                                        {% for author in book.author.all %}
+                                                            {{ author.full_name }}
+                                                        {% endfor %}
 
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling7.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">بادام</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">سون وون پیونگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
+                                                    </a></p>
+                                                    <div
+                                                            class="properties-footer d-flex justify-content-between align-items-center">
+                                                        <div class="review">
+                                                            <div class="rating">
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star-half-alt"></i>
+                                                            </div>
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                        <div class="price">
+                                                            <p>{{ book.price }}<span>تومان</span></p>
+                                                        </div>
                                                     </div>
-                                                    <p>(<span>12</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>55.000<span>تومان</span></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling8.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">رازهایی درباره مردان</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">باربارا دی آنجلیس</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>40</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>280.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling6.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کیمیاگر</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">پائولو کونیلو</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>11</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>300.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling4.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">مت هیگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>9</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>80.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling9.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">حذف پول</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">بزرگمهر برخیده</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>120</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>380.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling2.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">پاستیل های بنفش</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">کاترین اپلیگت</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>30</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>280.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
+                    {% endfor %}
 
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling9.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">حذف پول</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">بزرگمهر برخیده</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>80</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>250.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling2.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">پاستیل های بنفش</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">کاترین اپلیگت</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>120</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>222.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling7.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">بادام</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">سون وون پیونگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>8</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>160.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling8.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">رازهایی درباره مردان</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">باربارا دی آنجلیس</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>200</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>380.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling6.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کیمیاگر</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">پائولو کونیلو</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>59</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>230.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling4.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">مت هیگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>12</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>110.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-five" role="tabpanel" aria-labelledby="nav-five-tab">
 
-                        <div class="row">
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling4.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">بادام</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">سون وون پیونگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>60</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>240.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling8.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">رازهایی درباره مردان</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">باربارا دی آنجلیس</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>125</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>235.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling6.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کیمیاگر</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">پائولو کونیلو</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>62</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>228.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling4.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">کتابخانه نیمه شب</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">مت هیگ</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>12</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>150.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling9.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">حذف پول</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">بزرگمهر برخیده</a>
-                                            </p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>66</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>264.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                                <div class="properties pb-30">
-                                    <div class="properties-card">
-                                        <div class="properties-img">
-                                            <a href="book-details.html"><img src="{% static 'img/book/best_selling2.jpg' %}"
-                                                                             alt=""></a>
-                                        </div>
-                                        <div class="properties-caption properties-caption2">
-                                            <h3><a href="book-details.html">پاستیل های بنفش</a></h3>
-                                            <p>نویسنده:<a href="#" target="_parent" class="author">کاترین اپلیگت</a></p>
-                                            <div
-                                                    class="properties-footer d-flex justify-content-between align-items-center">
-                                                <div class="review">
-                                                    <div class="rating">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star-half-alt"></i>
-                                                    </div>
-                                                    <p>(<span>200</span> نظر)</p>
-                                                </div>
-                                                <div class="price">
-                                                    <p>396.000<span>تومان</span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="more-btn text-center mt-15">
-                            <a href="#" class="border-btn border-btn2 more-btn2">مشاهده بیشتر</a>
+                            <a href="{% url 'literature:books' %}?sorted_by=newest" class="border-btn border-btn2 more-btn2">مشاهده بیشتر</a>
                         </div>
                     </div>
                 </div>
@@ -1496,111 +608,21 @@
                 </div>
 
                 <div class="row lists">
+                    {% for publisher in top_publishers %}
+                        <div class="list" id="item-1">
+                            <div class="list-image">
+                                <a href="{% url 'literature:publisher_detail' publisher.id %}" target="_self">
+                                    <img src="{{ publisher.picture.url }}" alt=""/>
+                                </a>
+                            </div>
 
-                    <div class="list" id="item-1">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/sabz.jpg' %}" alt=""/>
-                            </a>
+                            <div class="list-caption">
+                                <a href="{% url 'literature:publisher_detail' publisher.id %}"
+                                   target="_self">{{ publisher.name }}</a>
+                                <p>تعداد کتب در این سایت:<span>{{ publisher.pbooks.count }} عدد</span></p>
+                            </div>
                         </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر سبز</a>
-                            <p>تعداد کتب در این سایت:<span>10 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-2">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/baran.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر باران</a>
-                            <p>تعداد کتب در این سایت:<span>3 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-3">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/javaneh.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر جوانه</a>
-                            <p>تعداد کتب در این سایت:<span>32 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-4">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/peymaneh.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر پیمانه</a>
-                            <p>تعداد کتب در این سایت:<span>18 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-5">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/sayeh.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر سایه</a>
-                            <p>تعداد کتب در این سایت:<span>12 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-6">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/sima.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر سیما</a>
-                            <p>تعداد کتب در این سایت:<span>31 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-7">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/single-publisher.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر کتاب اول</a>
-                            <p>تعداد کتب در این سایت:<span>22 عدد</span></p>
-                        </div>
-                    </div>
-
-                    <div class="list" id="item-8">
-                        <div class="list-image">
-                            <a href="publisher-details.html" target="_self">
-                                <img src="{% static 'img/publisher/sormeh.jpg' %}" alt=""/>
-                            </a>
-                        </div>
-
-                        <div class="list-caption">
-                            <a href="publisher-details.html" target="_self">نشر سرمه</a>
-                            <p>تعداد کتب در این سایت:<span>2 عدد</span></p>
-                        </div>
-                    </div>
-
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -1636,71 +658,26 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div id="customers-testimonials" class="owl-carousel">
+                            {% for comment in top_comments %}
+                                <div class="item">
+                                    <div class="shadow-effect">
+                                        <img class="img-circle" src="{{ comment.user.profile.profile_picture.url }}"
+                                             alt="">
+                                        <p>{{ comment.body }}</p>
+                                    </div>
+                                    <div class="testimonial-name">
+                                        {% if comment.user.profile.first_name %}
+                                            {{ comment.user.profile.first_name }}
+                                        {% else %}
+                                            کاربر سایت
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+
                             <!--TESTIMONIAL 1 -->
-                            <div class="item">
-                                <div class="shadow-effect">
-                                    <img class="img-circle" src="{% static 'img/comments/testimonial4.jpg' %}" alt="">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی
-                                        می باشد. </p>
-                                </div>
-                                <div class="testimonial-name">سامان</div>
-                            </div>
-                            <!--END OF TESTIMONIAL 1 -->
-                            <!--TESTIMONIAL 2 -->
-                            <div class="item">
-                                <div class="shadow-effect">
-                                    <img class="img-circle" src="{% static 'img/comments/testimonial3.jpg' %}" alt="">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی
-                                        می باشد. </p>
-                                </div>
-                                <div class="testimonial-name">مریم</div>
-                            </div>
-                            <!--END OF TESTIMONIAL 2 -->
-                            <!--TESTIMONIAL 3 -->
-                            <div class="item">
-                                <div class="shadow-effect">
-                                    <img class="img-circle" src="{% static 'img/comments/testimonial1.jpg' %}" alt="">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی
-                                        می باشد. </p>
-                                </div>
-                                <div class="testimonial-name">شیما</div>
-                            </div>
-                            <!--END OF TESTIMONIAL 3 -->
-                            <!--TESTIMONIAL 4 -->
-                            <div class="item">
-                                <div class="shadow-effect">
-                                    <img class="img-circle" src="{% static 'img/comments/testimonial2.jpg' %}" alt="">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی
-                                        می باشد. </p>
-                                </div>
-                                <div class="testimonial-name">سعید</div>
-                            </div>
-                            <!--END OF TESTIMONIAL 4 -->
-                            <!--TESTIMONIAL 5 -->
-                            <div class="item">
-                                <div class="shadow-effect">
-                                    <img class="img-circle" src="{% static 'img/comments/testimonial5.jpg' %}" alt="">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی
-                                        می باشد. </p>
-                                </div>
-                                <div class="testimonial-name">محمد</div>
-                            </div>
-                            <!--END OF TESTIMONIAL 5 -->
+
+
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -10,14 +11,31 @@ from accounts.models import User
 from literature.forms import BookSearchForm
 from .models import Like, Comment
 from .forms import CommentForm, CommentReplyForm, LikeForm
+from literature.models import Category, Book, Author, Publisher
 
 
 class HomeView(View):
     template_name = 'home/home.html'
 
-
     def get(self, reqeust):
-        return render(reqeust, template_name=self.template_name)
+        categories = Category.objects.all()
+        top_authors = Author.objects.annotate(book_count=Count('abooks')).order_by('-book_count')[:4]
+        top_publishers = Publisher.objects.annotate(book_count=Count('pbooks')).order_by('-book_count')[:8]
+
+        post_content_type = ContentType.objects.get(app_label='accounts', model='post')
+        top_comments = Comment.objects.exclude(content_type=post_content_type).order_by('-created_at')[:10]
+
+        latest_books = Book.objects.order_by('-created_at')[:6]
+
+        context = {
+            'categories': categories,
+            'top_authors': top_authors,
+            'top_publishers': top_publishers,
+            'top_comments': top_comments,
+            'latest_books': latest_books
+
+        }
+        return render(reqeust, self.template_name, context)
 
     def post(self, request):
         pass

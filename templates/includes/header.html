@@ -1,4 +1,5 @@
 {% load static %}
+{% load book_extras %}
 <header>
     <div class="header-area">
         <div class="main-header ">
@@ -14,11 +15,15 @@
                                                                              alt=""></a>
                                     </div>
 
-                                    <form action="#" class="form-box">
-                                        <input type="text" name="Search"
-                                               placeholder="جستجوی کتاب براساس نویسنده یا انتشارات">
+                                    <form action="{% url 'literature:books' %}" class="form-box" method="get">
+                                        <input type="text"
+                                               name="search"
+                                               placeholder="جستجوی کتاب براساس نویسنده یا انتشارات"
+                                               value="{{ request.GET.search }}">
                                         <div class="search-icon">
-                                            <i class="ti-search"></i>
+                                            <button type="submit" style="background: none; border: none;">
+                                                <i class="ti-search"></i>
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -53,80 +58,41 @@
                         <div class="col-xl-12">
 
                             <div class="logo2">
-                                <a href="index.html"><img src='{% static "img/logo/logo.png" %}' alt=""></a>
+                                <a href="{% url 'home:home' %}"><img src='{% static "img/logo/logo.png" %}' alt=""></a>
                             </div>
 
                             <div class="main-menu text-center d-none d-lg-block">
                                 <nav>
                                     <ul id="navigation" class="menu">
-                                        <li><a href="index.html">صفحه اصلی</a></li>
+                                        <li><a href="{% url 'home:home' %}">صفحه اصلی</a></li>
 
                                         <li><a href="#">دسته بندی موضوعی</a>
-
                                             <div class="megadrop">
                                                 <div class="mega-head">
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">تاریخی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">جغرافیا</a>
-                                                            </li>
-                                                            <li><a href="categories.html">اجتماعی</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">ورزشی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">پزشکی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">روانشناسی</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">علمی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">سینما و تئاتر</a>
-                                                            </li>
-                                                            <li><a href="categories.html">رمان و داستان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">فلسفه</a>
-                                                            </li>
-                                                            <li><a href="categories.html">آموزشی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">دینی و مذهبی</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                    {% for group in categories|chunk:3 %}
+                                                        <div class="col">
+                                                            <ul>
+                                                                {% for category in group %}
+                                                                    <li>
+                                                                        <a href="{% url 'literature:books' %}?category={{ category.id }}">
+                                                                            {{ category.name }}
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    {% endfor %}
                                                 </div>
                                                 <div class="mega-foot">
                                                     <div class="col-12">
-                                                        <a href="author.html">صفحه نویسندگان</a>
-                                                        <a href="publisher.html">صفحه ناشران</a>
+                                                        <a href="{% url 'literature:authors' %}">صفحه نویسندگان</a>
+                                                        <a href="{% url 'literature:translators' %}">صفحه مترجمان</a>
+                                                        <a href="{% url 'literature:publishers' %}">صفحه ناشران</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
                                         <li><a href="blog.html">وبلاگ</a></li>
-                                        <li><a href="#">صفحات</a>
-                                            <ul class="submenu">
-                                       
-                                                <li><a href="cart.html">سبد خرید</a></li>
-                                                <li><a href="checkout.html">تسویه حساب</a></li>
-                                                <li><a href="{% url 'literature:books' %}">دسته بندی</a></li>
-                                                <li><a href="{% url 'literature:authors' %}">نویسندگان</a></li>
-                                                <li><a href="{% url 'literature:publishers' %}">ناشران</a></li>
-                                                <li><a href="{% url 'literature:translators' %}">مترجمان</a></li>
-                                                <li><a href="blog-details.html">جزئیات وبلاگ</a></li>
-                                            </ul>
-                                        </li>
                                         <li><a href="about.html">درباره ما</a></li>
                                         <li><a href="contact.html">تماس با ما</a></li>
                                     </ul>

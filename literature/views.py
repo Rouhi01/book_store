@@ -154,7 +154,7 @@ class BooksView(View):
 
         if search:
             books = books.filter(
-                Q(title__icontains=search) | Q(author__name__icontains=search)
+                Q(title__icontains=search) | Q(author__full_name__icontains=search)
             )
 
         # if sort_by == 'popularity':
@@ -203,8 +203,7 @@ class BookDetailView(View):
             object_id=book.id,
             is_reply=False,
         )
-        for i in book.author.all():
-            print(i)
+
         context = {
             'form': form,
             'form_reply': form_reply,
