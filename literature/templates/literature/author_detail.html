@@ -165,34 +165,6 @@
                                                             </div>
                                                             <p>{{ comment.body }}</p>
                                                             <div class="pad-ver d-flex">
-                                                                {#                                                                <div class="btn-group">#}
-                                                                {#                                                                    {% if liked %}#}
-                                                                {#                                                                        <form action="{% url 'home:like_comment' 'comment' comment.id 'post' post.id %}"#}
-                                                                {#                                                                              method="post">#}
-                                                                {#                                                                            {% csrf_token %}#}
-                                                                {#                                                                            <button type="submit"#}
-                                                                {#                                                                                    class="btn btn-sm btn-default btn-hover-success"#}
-                                                                {#                                                                                    style="background-color: #00a4a6!important;#}
-                                                                {#                                                                                    color: white">#}
-                                                                {#                                                                                <i#}
-                                                                {#                                                                                        class="fa fa-thumbs-up"></i>#}
-                                                                {#                                                                                <span>1</span>#}
-                                                                {#                                                                            </button>#}
-                                                                {#                                                                        </form>#}
-                                                                {##}
-                                                                {#                                                                    {% else %}#}
-                                                                {#                                                                        <form action="{% url 'home:like_comment' 'comment' comment.id 'post' post.id %}"#}
-                                                                {#                                                                              method="post">#}
-                                                                {#                                                                            {% csrf_token %}#}
-                                                                {#                                                                            <button type="submit"#}
-                                                                {#                                                                                    class="btn btn-sm btn-default btn-hover-success active">#}
-                                                                {#                                                                                <i#}
-                                                                {#                                                                                        class="fa fa-thumbs-up"></i>#}
-                                                                {#                                                                                <span>1</span>#}
-                                                                {#                                                                            </button>#}
-                                                                {#                                                                        </form>#}
-                                                                {#                                                                    {% endif %}#}
-                                                                {#                                                                </div>#}
                                                                 <a class="btn btn-sm btn-default btn-hover-primary reply-btn"
                                                                    href="javascript:void(0)">پاسخ</a>
                                                             </div>
@@ -257,31 +229,6 @@
                                                                                 <p>{{ reply.body }}</p>
                                                                                 <div class="pad-ver">
                                                                                     <div class="btn-group">
-                                                                                        {#                                                                                        {% if liked %}#}
-                                                                                        {#                                                                                            <form action="{% url 'home:like' 'post' post.id %}"#}
-                                                                                        {#                                                                                                  method="post">#}
-                                                                                        {#                                                                                                {% csrf_token %}#}
-                                                                                        {#                                                                                                <button type="submit"#}
-                                                                                        {#                                                                                                        class="white-btn mr-10"#}
-                                                                                        {#                                                                                                        style="background-color: #00a4a6; color: white">#}
-                                                                                        {#                                                                                                    عدم پسندیدن#}
-                                                                                        {#                                                                                                    <span style="margin-right: 5px">{{ form_like.content_id }}</span>#}
-                                                                                        {#                                                                                                </button>#}
-                                                                                        {#                                                                                            </form>#}
-                                                                                        {##}
-                                                                                        {#                                                                                        {% else %}#}
-                                                                                        {#                                                                                            <form action="{% url 'home:like' model_name post.id %}"#}
-                                                                                        {#                                                                                                  method="post">#}
-                                                                                        {#                                                                                                {% csrf_token %}#}
-                                                                                        {#                                                                                                <button type="submit"#}
-                                                                                        {#                                                                                                        class="btn btn-sm btn-default btn-hover-success active">#}
-                                                                                        {#                                                                                                    <i#}
-                                                                                        {#                                                                                                            class="fa fa-thumbs-up"></i>#}
-                                                                                        {#                                                                                                    <span>1</span>#}
-                                                                                        {#                                                                                                </button>#}
-                                                                                        {#                                                                                            </form>#}
-                                                                                        {#                                                                                        {% endif %}#}
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <hr>

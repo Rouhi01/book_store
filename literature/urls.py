@@ -11,4 +11,7 @@ urlpatterns = [
     path('translators/', views.TranslatorsView.as_view(), name='translators'),
     path('translator_detail/<int:translator_id>/', views.TranslatorDetailView.as_view(), name='translator_detail'),
 
+    path('books/', views.BooksView.as_view(), name='books'),
+    path('book_detail/<int:book_id>/', views.BookDetailView.as_view(), name='book_detail')
+
 ]

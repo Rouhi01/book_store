@@ -7,13 +7,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import ContentType
 
 from accounts.models import User
+from literature.forms import BookSearchForm
 from .models import Like, Comment
 from .forms import CommentForm, CommentReplyForm, LikeForm
 
 
 class HomeView(View):
     template_name = 'home/home.html'
-    form_class = ''
+
 
     def get(self, reqeust):
         return render(reqeust, template_name=self.template_name)

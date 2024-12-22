@@ -352,7 +352,7 @@
                                     </div>
                                 </div>
                                 <ul class="slick-dots" style="display: block;" role="tablist">
-                                    {% for book in author.abooks.all %}
+                                    {% for book in publisher.pbooks.all %}
                                         <li class="{% if forloop.first %}slick-active{% endif %}" role="presentation">
                                             <button type="button" role="tab"
                                                     id="slick-slide-control{{ forloop.counter }}"
