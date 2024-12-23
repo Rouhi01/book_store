@@ -1,4 +1,5 @@
 {% load static %}
+{% load book_extras %}
 <footer>
     <div class="footer-wrappper section-bg">
         <div class="footer-area footer-padding">
@@ -9,12 +10,11 @@
                             <div class="single-footer-caption mb-30">
 
                                 <div class="footer-logo mb-25">
-                                    <a href="index.html"><img src='{% static "img/logo/logo2_footer.png" %}' alt=""></a>
+                                    <a href="{% url 'home:home' %}"><img src='{% static "img/logo/logo2_footer.png" %}' alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
-                                        <p>قالب کابانا یک قالب HTML ایرانی است که در زمینه فروش آنلاین کتاب کدنویسی
-                                            شده است.</p>
+                                        <p>با کابانا دسترسی سریع به کتابا</p>
                                     </div>
                                 </div>
 
@@ -28,34 +28,28 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>دسته بندی موضوعی</h4>
-                                <ul>
-                                    <li><a href="categories.html">تاریخ</a></li>
-                                    <li><a href="categories.html">روانشناسی</a></li>
-                                    <li><a href="categories.html">کسب و کار</a></li>
-                                    <li><a href="categories.html">علوم</a></li>
-                                    <li><a href="categories.html">رمان</a></li>
-                                </ul>
+
+                    {% with categories|chunk:size as chunks %}
+                        {% for column in chunks %}
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                                <div class="single-footer-caption mb-50">
+                                    <div class="footer-tittle">
+                                        {% if forloop.first %}
+                                            <h4>دسته بندی موضوعی</h4>
+                                        {% else %}
+                                            <h4>&nbsp;</h4>
+                                        {% endif %}
+                                        <ul>
+                                            {% for category in column %}
+                                                <li><a href="">{{ category.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>&nbsp;</h4>
-                                <ul>
-                                    <li><a href="categories.html">اقتصادی</a></li>
-                                    <li><a href="categories.html">مذهبی</a></li>
-                                    <li><a href="categories.html">جغرافیا</a></li>
-                                    <li><a href="categories.html">علوم سیاسی</a></li>
-                                    <li><a href="categories.html">بیوگرافی</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                        {% endfor %}
+                    {% endwith %}
+
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
@@ -65,7 +59,7 @@
                                     <li><a href="contact.html">سوالات متداول</a></li>
                                     <li><a href="contact.html">ارتباط با مدیر</a></li>
                                     <li><a href="contact.html">درخواست همکاری</a></li>
-                                    <li><a href="blog-details.html">معرفی کتاب</a></li>
+                                    <li><a href="blog-details.html">درخواست کتاب</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -83,7 +77,7 @@
                                 کپی رایت &copy; تمام حقوق محفوظ می باشد | طراحی شده با <i
                                     class="fa fa-heart color-danger" aria-hidden="true"></i> توسط <a
                                     href="https://www.rtl-theme.com/author/samyar1/products/"
-                                    style="color: rgb(0, 0, 0)" target="_blank" rel="nofollow noopener">آی پلاس</a>
+                                    style="color: rgb(0, 0, 0)" target="_blank" rel="nofollow noopener">روحی</a>
                             </div>
                         </div>
                     </div>

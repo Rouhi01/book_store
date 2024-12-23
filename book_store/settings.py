@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'store.apps.StoreConfig',
     'literature.apps.CreatorConfig',
+    'blog.apps.BlogConfig',
 
     # Third-party library
     'widget_tweaks'
