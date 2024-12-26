@@ -34,6 +34,8 @@
                                     <div class="book-img">
                                         {% for bimage in book.bimages.all %}
                                             <img src="{{ bimage.image.url }}" alt="">
+                                        {% empty %}
+                                            <img src="{{ book.cover_image.url }}" alt="">
                                         {% endfor %}
                                     </div>
                                     <div class="book-caption">
@@ -64,11 +66,13 @@
                                         <div class="price">
                                             <p>{{ book.price }}<span>تومان</span></p>
                                         </div>
-                                        <a href="#" class="white-btn mr-10">افزودن به سبد خرید</a>
-                                        <a href="#" class="border-btn book-btn share-btn"><i
-                                                class="fas fa-share-alt"></i></a>
-                                        <a href="#" class="border-btn book-btn print-btn"><i
-                                                class="fas fa-print"></i></a>
+                                        <form action="{% url 'orders:cart_add' book.id %}" method="post" novalidate>
+                                            {% csrf_token %}
+                                            <input type="hidden" name="content_id" value="{{ book.id }}">
+                                            <button type="submit" class="white-btn mr-10">
+                                                افزودن به سبد خرید
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -116,8 +120,8 @@
                     <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
                         {% for author in book.author.all %}
                             <div class="row">
-                                <div class="author-img">
-                                    <img src="{{ author.picture.url }}" alt="">
+                                <div class="author-img row-cols-3" style="padding: 0">
+                                    <img src="{{ author.picture.url }}" alt="" style="width: 100%; height: 100%">
                                 </div>
                                 <div class="author-tab offset-xl-1 col-lg-9">
                                     <p>{{ author.biography }}</p>

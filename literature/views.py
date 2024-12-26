@@ -7,7 +7,7 @@ from home.forms import CommentForm, CommentReplyForm
 from home.models import Comment
 from .forms import BookSearchForm
 from .models import Author, Book, Publisher, Translator, Category
-
+from orders.forms import AddCartForm
 
 class AuthorsView(View):
     template_name = 'literature/authors.html'
@@ -171,6 +171,7 @@ class BooksView(View):
             books = books.order_by('-price')
 
 
+
         context = {
             'books': books,
             'categories': Category.objects.all(),
@@ -191,10 +192,12 @@ class BookDetailView(View):
     template_name = 'literature/book_detail.html'
     form_class = CommentForm
     form_class_reply = CommentReplyForm
+    form_class_add_cart = AddCartForm
 
     def get(self, request, book_id):
         form = self.form_class()
         form_reply = self.form_class_reply()
+        form_add_cart = self.form_class_add_cart()
 
         book = get_object_or_404(Book, id=book_id)
 
@@ -207,10 +210,11 @@ class BookDetailView(View):
         context = {
             'form': form,
             'form_reply': form_reply,
+            'form_add_cart': form_add_cart,
             'book': book,
             'comments': comments,
             'model_name': 'book',
-            'app_label': 'literature'
+            'app_label': 'literature',
         }
 
         return render(request, self.template_name, context)

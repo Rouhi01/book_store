@@ -12,6 +12,7 @@ from literature.forms import BookSearchForm
 from .models import Like, Comment
 from .forms import CommentForm, CommentReplyForm, LikeForm
 from literature.models import Category, Book, Author, Publisher
+from blog.models import Blog
 
 
 class HomeView(View):
@@ -27,12 +28,16 @@ class HomeView(View):
 
         latest_books = Book.objects.order_by('-created_at')[:6]
 
+        three_articles = Blog.objects.order_by('-created_at')
+
+
         context = {
             'categories': categories,
             'top_authors': top_authors,
             'top_publishers': top_publishers,
             'top_comments': top_comments,
-            'latest_books': latest_books
+            'latest_books': latest_books,
+            'three_articles': three_articles
 
         }
         return render(reqeust, self.template_name, context)

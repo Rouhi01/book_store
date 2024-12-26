@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="index.html" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                    </li>
+                    <li>
+                        <a href="categories.html" class="breadcrumb-link">دسته بندی کتب</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <a href="cart.html" class="breadcrumb-link">سبد خرید</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">تسویه حساب</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div class="slider-height2 slider-bg5 d-flex align-items-center justify-content-center">
+                            <div class="hero-caption hero-caption2">
+                                <h2>تسویه حساب</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="checkout_area section-padding">
+            <div class="container">
+                {% if not request.user.is_authenticated %}
+                	<div class="returning_customer">
+                    <div class="check_title">
+                        <h2>
+                            قبلاً ثبت نام کرده اید؟
+                            <a href="login.html">برای ورود کلیک کنید</a>
+                        </h2>
+                    </div>
+                    <p>
+                        اگر قبلاً از ما خرید کرده اید، اطلاعات خود را در بخش پایین وارد کنید و اگر مشتری جدید هستید،
+                        لطفاً با تکمیل بخش صورتحساب و حمل و نقل ادامه دهید.
+                    </p>
+                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="name" name="name" value=" ">
+                            <span class="placeholder" data-placeholder="نام کاربری یا ایمیل"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="password" class="form-control" id="password" name="password" value="">
+                            <span class="placeholder" data-placeholder="رمز عبور"></span>
+                        </div>
+                        <div class="col-md-12 form-group d-flex flex-wrap">
+                            <div class="checkout-cap ml-5">
+                                <input type="checkbox" id="fruit01" name="keep-log">
+                                <label for="fruit01">ساخت حساب کاربری جدید</label>
+                            </div>
+                            <a href="login.html" value="submit" class="btn"> ورود</a>
+
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
+
+                <div class="cupon_area">
+                    <div class="check_title">
+                        <h2> کد تخفیف دارید؟
+                            <a href="#">برای وارد کردن کد تخفیف اینجا کلیک کنید</a>
+                        </h2>
+                    </div>
+                    <input type="text" placeholder="کد تخفیف خود را وارد کنید">
+                    <a class="btn" href="#">اعمال</a>
+                </div>
+                <div class="billing_details">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h3>جزئیات صورتحساب</h3>
+                            <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="first" name="name">
+                                    <span class="placeholder" data-placeholder="نام"></span>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="last" name="name">
+                                    <span class="placeholder" data-placeholder="نام خانوادگی"></span>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="company" name="company"
+                                           placeholder="شرکت">
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="number" name="number">
+                                    <span class="placeholder" data-placeholder="تلفن همراه"></span>
+                                </div>
+                                <div class="col-md-6 form-group p_star">
+                                    <input type="text" class="form-control" id="email" name="compemailany">
+                                    <span class="placeholder" data-placeholder="ایمیل"></span>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <select class="country_select" style="display: none;">
+                                        <option value="1">ایران</option>
+                                        <option value="2">سوییس</option>
+                                        <option value="4">اسپانیا</option>
+                                    </select>
+                                    <div class="nice-select country_select" tabindex="0"><span
+                                            class="current">ایران</span>
+                                        <ul class="list">
+                                            <li data-value="1" class="option selected">ایران</li>
+                                            <li data-value="2" class="option">سوییس</li>
+                                            <li data-value="4" class="option">اسپانیا</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="add1" name="add1">
+                                    <span class="placeholder" data-placeholder="آدرس خط اول"></span>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="add2" name="add2">
+                                    <span class="placeholder" data-placeholder="آدرس خط دوم"></span>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <input type="text" class="form-control" id="city" name="city">
+                                    <span class="placeholder" data-placeholder="استان"></span>
+                                </div>
+                                <div class="col-md-12 form-group p_star">
+                                    <select class="country_select" style="display: none;">
+                                        <option value="1">شهر اول</option>
+                                        <option value="2">شهر دوم</option>
+                                        <option value="4">شهر سوم</option>
+                                    </select>
+                                    <div class="nice-select country_select" tabindex="0"><span
+                                            class="current">شهر اول</span>
+                                        <ul class="list">
+                                            <li data-value="1" class="option selected">شهر اول</li>
+                                            <li data-value="2" class="option">شهر دوم</li>
+                                            <li data-value="4" class="option">شهر سوم</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <input type="text" class="form-control" id="zip" name="zip" placeholder="کدپستی">
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="checkout-cap">
+                                        <input type="checkbox" id="fruit1" name="keep-log">
+                                        <label for="fruit1">ساخت حساب کاربری؟</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="creat_account">
+                                        <h3>جزئیات حمل و نقل</h3>
+                                        <div class="checkout-cap">
+                                            <input type="checkbox" id="f-option3" name="selector">
+                                            <label for="f-option3">ارسال به آدرس دیگر؟</label>
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control" name="message" id="message" rows="1"
+                                              placeholder="یادداشت سفارش"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="order_box">
+                                <h2>سفارش شما</h2>
+                                <ul class="list">
+                                    <li>
+                                        <a href="#">محصول<span>جمع</span>
+                                        </a>
+                                    </li>
+                                    {% for item in order.items.all %}
+                                    	<li>
+                                        <a href="#">
+                                            {{ item.book.title }}
+                                            <span class="middle">* {{ item.quantity }}</span>
+                                            <span class="last">{{ item.get_cost }} تومان</span>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+
+                                </ul>
+                                <ul class="list list_2">
+                                    <li>
+                                        <a href="#">جمع نهایی <span>{{ order.get_total_price }} تومان</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">حمل و نقل
+                                            <span>ارسال با پست: 70.000 تومان</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">پرداخت نهایی<span>510.000 تومان</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="payment_item">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="f-option5" name="selector">
+                                        <label for="f-option5">پرداخت چکی</label>
+                                        <div class="check"></div>
+                                    </div>
+                                    <p> لطفاً چک مورد نظر را به همراه مشخصات کامل و کدپستی به آدرس ما ارسال نمایید. </p>
+                                </div>
+                                <div class="payment_item active">
+                                    <div class="radion_btn">
+                                        <input type="radio" id="f-option6" name="selector" checked="">
+                                        <label for="f-option6">بانک ملت </label>
+                                        <div class="check"></div>
+                                    </div>
+                                    <p> لطفاً از کارت بانکی خود استفاده کنید. </p>
+                                </div>
+                                <div class="creat_account checkout-cap">
+                                    <input type="checkbox" id="f-option8" name="selector">
+                                    <label for="f-option8">تمام <a href="#">شرایط و قوانین*</a> را خواندم و با آن موافق
+                                        هستم.
+                                    </label>
+                                </div>
+                                <a class="btn w-100" href="#">پرداخت</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}

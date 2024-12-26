@@ -23,13 +23,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Local apps
     'accounts.apps.AccountsConfig',
     'home.apps.HomeConfig',
-    'store.apps.StoreConfig',
     'literature.apps.CreatorConfig',
     'blog.apps.BlogConfig',
-
-    # Third-party library
+    'orders.apps.OrdersConfig',
+    
+    # Third-party apps
     'widget_tweaks'
 
 ]
@@ -59,7 +60,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'book_store.context_processors.categories'
+                'book_store.context_processors.categories',
+                'book_store.context_processors.cart',
             ],
         },
     },

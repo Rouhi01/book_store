@@ -32,7 +32,8 @@
                                         <li><a href="#">راهنما</a></li>
                                         <li><a href="#">پیگیری سفارشات</a></li>
                                         <li class="shopping-card">
-                                            <a href="cart.html"><img src='{% static "img/icon/cart.svg" %}' alt=""></a>
+                                            <a href="{% url 'orders:cart' %}"><img src='{% static "img/icon/cart.svg" %}' alt=""></a>
+                                            {{ cart|length }}
                                         </li>
                                         {% if request.user.is_authenticated %}
                                             <li><a href="{% url 'accounts:profile' request.user.id %}"
