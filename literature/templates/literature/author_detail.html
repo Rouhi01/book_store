@@ -41,21 +41,30 @@
                                     <p>نویسنده: <span>{{ author.full_name }}</span></p>
                                     <p>زمینه نویسندگی:<a href="" target="_self">
                                         {% for field in author.field_of_writing.all %}
-                                            <a href="" target="_self">{{ field.name }}</a>
+                                            <a href="{% url 'literature:authors' %}?field_of_writing={{ field.id }}"
+                                               target="_self">
+                                                {{ field.name }}
+                                            </a>
                                         {% empty %}
                                             نامشخص
                                         {% endfor %}
                                     </a></p>
                                     <p class="job">پیشه:
                                         {% for profession in author.profession.all %}
-                                            <a href="" target="_self">{{ profession.name }}</a>
+                                            <a href="{% url 'literature:authors' %}?profession={{ profession.id }}"
+                                               target="_self">
+                                                {{ profession.name }}
+                                            </a>
                                         {% empty %}
                                             نامشخص
                                         {% endfor %}
                                     </p>
                                     <p>ملیت:
                                         {% for n in author.nationality.all %}
-                                            <a href="" target="_self">{{ n.name }}</a>
+                                            <a href="{% url 'literature:authors' %}?nationality={{ n.id }}"
+                                               target="_self">
+                                                {{ n.name }}
+                                            </a>
                                         {% empty %}
                                             نامشخص
                                         {% endfor %}
@@ -272,20 +281,23 @@
                                     <div class="slick-track" style="opacity: 1;">
 
                                         {% for book in author.abooks.all %}
-                                            <div class="properties pb-20 slick-slide" style="width: 244px;"
+                                            <div class="properties pb-20 slick-slide"
+                                                 style="width: 244px; margin: 8px"
                                                  tabindex="-1" role="tabpanel"
                                                  aria-describedby="slick-slide-control{{ forloop.counter }}"
                                                  data-slick-index="{{ forloop.counter }}" aria-hidden="false">
                                                 <div class="properties-card">
                                                     <div class="properties-img">
-                                                        <a href="" tabindex="0">
+                                                        <a href="{% url 'literature:book_detail' book.id %}" tabindex="0">
                                                             <img src="{{ book.cover_image.url }}"
-                                                                 alt="{{ book.title }}" class="img-fluid">
+                                                                 alt="{{ book.title }}"
+                                                                 class="img-fluid"
+                                                                 style="height: 369px">
                                                         </a>
                                                     </div>
                                                     <div class="properties-caption">
                                                         <h3>
-                                                            <a href=""
+                                                            <a href="{% url 'literature:book_detail' book.id %}"
                                                                tabindex="0">{{ book.title }}
                                                             </a>
                                                         </h3>
@@ -299,7 +311,7 @@
                                                                     <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star-half-alt"></i>
                                                                 </div>
-                                                                <p>(<span>{{ book.reviews_count|default:0 }}</span> نظر)
+                                                                <p>(<span>{{ book.comment.all.count }}</span> نظر)
                                                                 </p>
                                                             </div>
                                                             <div class="price">
@@ -309,8 +321,9 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         {% empty %}
-                                            hi
+                                            <p>کتابی از این نویسنده در دسترس نیست!</p>
                                         {% endfor %}
 
                                     </div>
@@ -328,12 +341,13 @@
                                             </button>
                                         </li>
                                     {% empty %}
-                                        hi
                                     {% endfor %}
                                 </ul>
 
                                 <div class="author-btn">
-                                    <a href="#books" class="white-btn mr-10">کتاب های نویسنده</a>
+                                    <a href="{% url 'literature:books' %}?author={{ author.id }}"
+                                       class="white-btn mr-10">کتاب های نویسنده
+                                    </a>
                                 </div>
 
                             </div>

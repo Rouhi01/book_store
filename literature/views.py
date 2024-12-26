@@ -6,8 +6,9 @@ from django.views import View
 from home.forms import CommentForm, CommentReplyForm
 from home.models import Comment
 from .forms import BookSearchForm
-from .models import Author, Book, Publisher, Translator, Category
+from .models import Author, Book, Publisher, Translator, Category, Field, Nationality, Profession
 from orders.forms import AddCartForm
+
 
 class AuthorsView(View):
     template_name = 'literature/authors.html'
@@ -15,7 +16,36 @@ class AuthorsView(View):
 
     def get(self, request):
         authors = Author.objects.all()
-        return render(request, template_name=self.template_name, context={'authors': authors})
+
+        search = request.GET.get('search')
+        field_of_writing = request.GET.get('field_of_writing')
+        profession = request.GET.get('profession')
+        nationality = request.GET.get('nationality')
+
+        if search:
+            authors = authors.filter(full_name__icontains=search)
+
+        if field_of_writing:
+            authors = authors.filter(field_of_writing__id__in=field_of_writing)
+
+        if profession:
+            authors = authors.filter(profession__id__in=profession)
+
+        if nationality:
+            authors = authors.filter(nationality__id__in=nationality)
+
+        fields = Field.objects.all()
+        nationalities = Nationality.objects.all()
+        professions = Profession.objects.all()
+
+        context = {
+            'authors': authors,
+            'fields': fields,
+            'nationalities': nationalities,
+            'professions': professions
+        }
+
+        return render(request, self.template_name, context)
 
 
 class AuthorDetailView(View):
@@ -53,6 +83,12 @@ class PublisherView(View):
 
     def get(self, request):
         publishers = Publisher.objects.all()
+
+        search = request.GET.get('search')
+
+        if search:
+            publishers = publishers.filter(full_name__icontains=search)
+
         return render(request, self.template_name, {'publishers': publishers})
 
 
@@ -91,6 +127,12 @@ class TranslatorsView(View):
 
     def get(self, request):
         translators = Translator.objects.all()
+
+        search = request.GET.get('search')
+
+        if search:
+            translators = translators.filter(name__icontains=search)
+
         return render(request, template_name=self.template_name, context={'translators': translators})
 
 
@@ -207,6 +249,9 @@ class BookDetailView(View):
             is_reply=False,
         )
 
+        categories = book.category.all()
+        related_books = Book.objects.filter(category__in=categories).exclude(id=book.id)
+
         context = {
             'form': form,
             'form_reply': form_reply,
@@ -215,6 +260,7 @@ class BookDetailView(View):
             'comments': comments,
             'model_name': 'book',
             'app_label': 'literature',
+            'related_books': related_books,
         }
 
         return render(request, self.template_name, context)

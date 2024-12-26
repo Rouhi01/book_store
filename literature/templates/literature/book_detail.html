@@ -49,7 +49,7 @@
                                                 <i class="fas fa-star"></i>
                                                 <i class="fas fa-star-half-alt"></i>
                                             </div>
-                                            <p>(<span>12</span> نظر)</p>
+                                            <p>(<span>{{ book.comment.all.count }}</span> نظر)</p>
                                         </div>
 
                                         <p>نویسنده:
@@ -404,625 +404,84 @@
             </div>
         </section>
 
-        <section class="related-books section-bg">
+        <section class="author-books section-bg">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
+                        <div class="section-tittle text-center mb-55" id="books">
                             <h2>کتاب های مرتبط</h2>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
-                            <div class="related-books-box slick-initialized slick-slider slick-dotted">
-
-
+                            <div class="author-books-box slick-initialized slick-slider slick-dotted">
                                 <div class="slick-list draggable">
-                                    <div class="slick-track"
-                                         style="opacity: 1; width: 3952px; transform: translate3d(2288px, 0px, 0px);">
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control02"
-                                             style="width: 208px;" data-slick-index="-5" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-3.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">رازهایی درباره
-                                                        زنان</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
+                                    <div class="slick-track" style="opacity: 1;">
+
+                                        {% for book in related_books %}
+                                            <div class="properties pb-20 slick-slide"
+                                                 style="width: 244px; margin: 8px"
+                                                 tabindex="-1" role="tabpanel"
+                                                 aria-describedby="slick-slide-control{{ forloop.counter }}"
+                                                 data-slick-index="{{ forloop.counter }}" aria-hidden="false">
+                                                <div class="properties-card">
+                                                    <div class="properties-img">
+                                                        <a href="{% url 'literature:book_detail' book.id %}" tabindex="0">
+                                                            <img src="{{ book.cover_image.url }}"
+                                                                 alt="{{ book.title }}"
+                                                                 class="img-fluid"
+                                                                 style="height: 369px">
+                                                        </a>
+                                                    </div>
+                                                    <div class="properties-caption">
+                                                        <h3>
+                                                            <a href="{% url 'literature:book_detail' book.id %}"
+                                                               tabindex="0">{{ book.title }}
+                                                            </a>
+                                                        </h3>
+                                                        <div class="properties-footer">
+                                                            <div class="review">
+                                                                <div class="rating">
+                                                                    <!-- ستاره‌ها به‌صورت دستی یا داینامیک بسته به داده‌ها -->
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star-half-alt"></i>
+                                                                </div>
+                                                                <p>(<span>{{ book.comment.all.count }}</span> نظر)
+                                                                </p>
                                                             </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>72.000<span>تومان</span></p>
+                                                            <div class="price">
+                                                                <p>{{ book.price }}<span>تومان</span></p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control03"
-                                             style="width: 208px;" data-slick-index="-4" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-4.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">اعتماد به نفس</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>69.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control04"
-                                             style="width: 208px;" data-slick-index="-3" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-5.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">قوانین روابط موفق</a>
-                                                    </h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>42.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control05"
-                                             style="width: 208px;" data-slick-index="-2" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-6.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">لحظه های ناب و
-                                                        حقیقی</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>45.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control06"
-                                             style="width: 208px;" data-slick-index="-1" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-7.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">روابط رمانتیک</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>35.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide" tabindex="-1" role="tabpanel"
-                                             id="slick-slide00" aria-describedby="slick-slide-control00"
-                                             style="width: 208px;" data-slick-index="0" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-1.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">اعتماد به نفس</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>19.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide" tabindex="-1" role="tabpanel"
-                                             id="slick-slide01" aria-describedby="slick-slide-control01"
-                                             style="width: 208px;" data-slick-index="1" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-2.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">چگونه به اینجا
-                                                        رسیدم؟</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>59.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide" tabindex="-1" role="tabpanel"
-                                             id="slick-slide02" aria-describedby="slick-slide-control02"
-                                             style="width: 208px;" data-slick-index="2" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-3.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">رازهایی درباره
-                                                        زنان</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>72.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide" tabindex="-1" role="tabpanel"
-                                             id="slick-slide03" aria-describedby="slick-slide-control03"
-                                             style="width: 208px;" data-slick-index="3" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-4.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">اعتماد به نفس</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>69.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide" tabindex="-1" role="tabpanel"
-                                             id="slick-slide04" aria-describedby="slick-slide-control04"
-                                             style="width: 208px;" data-slick-index="4" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-5.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">قوانین روابط موفق</a>
-                                                    </h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>42.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide" tabindex="-1" role="tabpanel"
-                                             id="slick-slide05" aria-describedby="slick-slide-control05"
-                                             style="width: 208px;" data-slick-index="5" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-6.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">لحظه های ناب و
-                                                        حقیقی</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>45.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-current slick-active"
-                                             tabindex="0" role="tabpanel" id="slick-slide06"
-                                             aria-describedby="slick-slide-control06" style="width: 208px;"
-                                             data-slick-index="6" aria-hidden="false">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="0"><img
-                                                            src="img/book/author-book-7.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="0">روابط رمانتیک</a></h3>
-                                                    <a href="#" target="_parent" tabindex="0">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>35.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned slick-active"
-                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control00"
-                                             style="width: 208px;" data-slick-index="7" aria-hidden="false">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="0"><img
-                                                            src="img/book/author-book-1.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="0">اعتماد به نفس</a></h3>
-                                                    <a href="#" target="_parent" tabindex="0">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>19.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned slick-active"
-                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control01"
-                                             style="width: 208px;" data-slick-index="8" aria-hidden="false">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="0"><img
-                                                            src="img/book/author-book-2.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="0">چگونه به اینجا
-                                                        رسیدم؟</a></h3>
-                                                    <a href="#" target="_parent" tabindex="0">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>59.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned slick-active"
-                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control02"
-                                             style="width: 208px;" data-slick-index="9" aria-hidden="false">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="0"><img
-                                                            src="img/book/author-book-3.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="0">رازهایی درباره زنان</a>
-                                                    </h3>
-                                                    <a href="#" target="_parent" tabindex="0">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>72.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned slick-active"
-                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control03"
-                                             style="width: 208px;" data-slick-index="10" aria-hidden="false">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="0"><img
-                                                            src="img/book/author-book-4.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="0">اعتماد به نفس</a></h3>
-                                                    <a href="#" target="_parent" tabindex="0">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>69.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control04"
-                                             style="width: 208px;" data-slick-index="11" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-5.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">قوانین روابط موفق</a>
-                                                    </h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>42.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control05"
-                                             style="width: 208px;" data-slick-index="12" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-6.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">لحظه های ناب و
-                                                        حقیقی</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>45.000<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="properties pb-20 slick-slide slick-cloned" tabindex="-1"
-                                             role="tabpanel" aria-describedby="slick-slide-control06"
-                                             style="width: 208px;" data-slick-index="13" aria-hidden="true">
-                                            <div class="properties-card">
-                                                <div class="properties-img">
-                                                    <a href="book-details.html" tabindex="-1"><img
-                                                            src="img/book/author-book-7.jpg" alt=""></a>
-                                                </div>
-                                                <div class="properties-caption">
-                                                    <h3><a href="book-details.html" tabindex="-1">روابط رمانتیک</a></h3>
-                                                    <a href="#" target="_parent" tabindex="-1">باربارا دی آنجلیس</a>
-                                                    <div class="properties-footer">
-                                                        <div class="review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
-                                                            </div>
-                                                            <p>(<span>12</span> نظر)</p>
-                                                        </div>
-                                                        <div class="price">
-                                                            <p>35.900<span>تومان</span></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        {% empty %}
+                                            <p>کتابی از این نویسنده در دسترس نیست!</p>
+                                        {% endfor %}
+
                                     </div>
                                 </div>
                                 <ul class="slick-dots" style="display: block;" role="tablist">
-                                    <li class="" role="presentation">
-                                        <button type="button" role="tab" id="slick-slide-control00"
-                                                aria-controls="slick-slide00" aria-label="1 of 2" tabindex="-1">1
-                                        </button>
-                                    </li>
-                                    <li class="" role="presentation">
-                                        <button type="button" role="tab" id="slick-slide-control01"
-                                                aria-controls="slick-slide01" aria-label="2 of 2" tabindex="-1">2
-                                        </button>
-                                    </li>
-                                    <li role="presentation" class="">
-                                        <button type="button" role="tab" id="slick-slide-control02"
-                                                aria-controls="slick-slide02" aria-label="3 of 2" tabindex="-1">3
-                                        </button>
-                                    </li>
-                                    <li role="presentation" class="">
-                                        <button type="button" role="tab" id="slick-slide-control03"
-                                                aria-controls="slick-slide03" aria-label="4 of 2" tabindex="-1">4
-                                        </button>
-                                    </li>
-                                    <li role="presentation" class="">
-                                        <button type="button" role="tab" id="slick-slide-control04"
-                                                aria-controls="slick-slide04" aria-label="5 of 2" tabindex="-1">5
-                                        </button>
-                                    </li>
-                                    <li role="presentation" class="">
-                                        <button type="button" role="tab" id="slick-slide-control05"
-                                                aria-controls="slick-slide05" aria-label="6 of 2" tabindex="-1">6
-                                        </button>
-                                    </li>
-                                    <li role="presentation" class="slick-active">
-                                        <button type="button" role="tab" id="slick-slide-control06"
-                                                aria-controls="slick-slide06" aria-label="7 of 2" tabindex="0"
-                                                aria-selected="true">7
-                                        </button>
-                                    </li>
+                                    {% for book in related_books %}
+                                        <li class="{% if forloop.first %}slick-active{% endif %}" role="presentation">
+                                            <button type="button" role="tab"
+                                                    id="slick-slide-control{{ forloop.counter }}"
+                                                    aria-controls="slick-slide{{ forloop.counter }}"
+                                                    aria-label="{{ forloop.counter }} of {{ books|length }}"
+                                                    tabindex="0"
+                                                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                                                {{ forloop.counter }}
+                                            </button>
+                                        </li>
+                                    {% empty %}
+                                    {% endfor %}
                                 </ul>
+
                             </div>
                         </div>
                     </div>

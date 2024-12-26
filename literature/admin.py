@@ -65,7 +65,7 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'price', 'publication_date', 'format', 'language', 'isbn')
     search_fields = ('title', 'isbn')
     list_filter = ('format', 'language', 'publisher')
-    filter_horizontal = ('author', 'translator')
+    filter_horizontal = ('author', 'translator', 'category')
     autocomplete_fields = ('publisher', 'language')
 
 

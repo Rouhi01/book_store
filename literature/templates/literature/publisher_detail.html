@@ -41,9 +41,6 @@
                                     <p>تعداد کتب در این سایت:<a href="" target="_self">{{ publisher.pbooks.all.count }}
                                         کتاب</a></p>
                                 </div>
-                                <div class="publisher-btn">
-                                    <a href="#books" class="white-btn mr-10">کتاب های این ناشر</a>
-                                </div>
                             </div>
                         </div>
 
@@ -335,7 +332,7 @@
                                                                     <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star-half-alt"></i>
                                                                 </div>
-                                                                <p>(<span>{{ book.reviews_count|default:0 }}</span> نظر)
+                                                                <p>(<span>{{ book.comment.all.count }}</span> نظر)
                                                                 </p>
                                                             </div>
                                                             <div class="price">

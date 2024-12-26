@@ -1,10 +1,12 @@
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Q
 from django.shortcuts import render
 from django.views import View
 
 from home.forms import CommentForm, CommentReplyForm
 from home.models import Comment
-from .models import Blog
+from .models import Blog, Tag
+from literature.models import Category
 
 
 class BlogsView(View):
@@ -13,8 +15,30 @@ class BlogsView(View):
 
     def get(self, request):
         blogs = Blog.objects.all()
+        tags = Tag.objects.all()
+        categories = Category.objects.all()
+
+        category = request.GET.get('category')
+        tag = request.GET.get('tag')
+        search = request.GET.get('search')
+
+        if category:
+            blogs = blogs.filter(category__id__in=category)
+
+        if tag:
+            blogs = blogs.filter(tag__id__in=tag)
+
+        if search:
+            blogs = blogs.filter(
+                Q(title__icontains=search) |
+                Q(user__profile__first_name__icontains=search) |
+                Q(user__profile__last_name__icontains=search)
+            )
+
         context = {
-            'blogs': blogs
+            'blogs': blogs,
+            'tags': tags,
+            'categories': categories
         }
         return render(request, self.template_name, context)
 

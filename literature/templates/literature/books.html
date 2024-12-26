@@ -228,9 +228,11 @@
                                             <div class="properties pb-30">
                                                 <div class="properties-card">
                                                     <div class="properties-img">
-                                                        <a href="{% url 'literature:book_detail' book.id %}"><img
+                                                        <a href="{% url 'literature:book_detail' book.id %}">
+                                                            <img
                                                                 src="{{ book.cover_image.url }}"
-                                                                alt=""></a>
+                                                                alt="" height="348px">
+                                                        </a>
                                                     </div>
                                                     <div class="properties-caption properties-caption2">
                                                         <h3>
@@ -250,7 +252,7 @@
                                                                     <i class="fas fa-star"></i>
                                                                     <i class="fas fa-star-half-alt"></i>
                                                                 </div>
-                                                                <p>(<span>12</span> نظر)</p>
+                                                                <p>(<span>{{ book.comment.all.count }}</span> نظر)</p>
                                                             </div>
                                                             <div class="price">
                                                                 <p>{{ book.price }}<span>تومان</span></p>

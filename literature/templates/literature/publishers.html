@@ -55,7 +55,7 @@
                                         <p>{{ publisher.description|truncatewords:50 }}</p>
                                         <ul class="publisher-info-link">
                                             <li><a href="#"><i class="fa fa-user"></i> {{ publisher.pbooks.all.count }} کتاب</a></li>
-                                            <li><a href="#"><i class="fa fa-comments"></i> 3 نظر</a></li>
+                                            <li><a href="#"><i class="fa fa-comments"></i> {{ publisher.comment.all.count }} نظر</a></li>
                                         </ul>
                                     </div>
 
@@ -89,161 +89,37 @@
                     <div class="col-lg-4">
                         <div class="publisher_right_sidebar">
                             <aside class="single_sidebar_widget search_widget">
-                                <form action="#">
+
                                     <div class="form-group m-0">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="جستجو">
-                                            <div class="input-group-append d-flex">
-                                                <button class="boxed-btn2" type="button">جستجو</button>
-                                            </div>
+                                            <form action="" method="get">
+                                                <input type="text" class="form-control" placeholder="جستجو براساس نام نویسنده" name="search">
+                                                <div class="input-group-append d-flex">
+                                                    <button class="boxed-btn2" type="submit">جستجو</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                </form>
+
                             </aside>
-                            <aside class="single_sidebar_widget post_category_widget">
-                                <h4 class="widget_title" style="color: #2d2d2d;">دسته بندی براساس ژانر</h4>
-                                <ul class="list cat-list">
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>تاریخی</p>
-                                            <p>(37)</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>بیوگرافی</p>
-                                            <p>(10)</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>مذهبی</p>
-                                            <p>(03)</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>روانشناسی</p>
-                                            <p>(11)</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>پزشکی</p>
-                                            <p>(21)</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="d-flex">
-                                            <p>خودشناسی</p>
-                                            <p>(09)</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </aside>
+
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title" style="color: #2d2d2d;">ناشران برتر</h3>
-                                <div class="media post_item">
-                                    <img src="img/publisher/sabz.jpg" alt="post">
+                                {% for publisher in publishers %}
+                                	<div class="media post_item">
+                                    <img src="{{ publisher.picture.url }}" alt="post">
                                     <div class="media-body">
-                                        <a href="publisher-details.html">
-                                            <h3 style="color: #2d2d2d;">انتشارات سبز</h3>
+                                        <a href="{% url 'literature:publisher_detail' publisher.id %}">
+                                            <h3 style="color: #2d2d2d;">انتشارات {{ publisher.name }}</h3>
                                         </a>
-                                        <p>22 کتاب</p>
+                                        <p>{{ publisher.pbooks.all.count }} کتاب</p>
                                     </div>
                                 </div>
-                                <div class="media post_item">
-                                    <img src="img/publisher/javaneh.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="publisher-details.html">
-                                            <h3 style="color: #2d2d2d;">انتشارات جوانه</h3>
-                                        </a>
-                                        <p>8 کتاب</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="img/publisher/sayeh.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="publisher-details.html">
-                                            <h3 style="color: #2d2d2d;">انتشارات سایه</h3>
-                                        </a>
-                                        <p>6 کتاب</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="img/publisher/peymaneh.jpg" alt="post">
-                                    <div class="media-body">
-                                        <a href="publisher-details.html">
-                                            <h3 style="color: #2d2d2d;">انتشارات پیمانه</h3>
-                                        </a>
-                                        <p>12 کتاب</p>
-                                    </div>
-                                </div>
+                                {% empty %}
+
+                                {% endfor %}
                             </aside>
-                            <aside class="single_sidebar_widget tag_cloud_widget">
-                                <h4 class="widget_title" style="color: #2d2d2d;">ابر برچسب ها</h4>
-                                <ul class="list">
-                                    <li>
-                                        <a href="#">کتاب</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">کتابخوانی</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">معرفی کتاب</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">روانشناسی</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">پزشکی</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">کتاب روانشناسی</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">کتاب خودشناسی</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">داستان نویسی</a>
-                                    </li>
-                                </ul>
-                            </aside>
-                            <aside class="single_sidebar_widget instagram_feeds">
-                                <h4 class="widget_title" style="color: #2d2d2d;">فید اینستاگرام</h4>
-                                <ul class="instagram_row flex-wrap">
-                                    <li>
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/blog/post_5.jpg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/blog/post_6.jpg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/blog/post_7.jpg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/blog/post_8.jpg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/blog/post_9.jpg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/blog/post_10.jpg" alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </aside>
+
                             <aside class="single_sidebar_widget newsletter_widget">
                                 <h4 class="widget_title" style="color: #2d2d2d;">خبرنامه کابانا</h4>
                                 <form action="#">

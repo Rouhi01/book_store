@@ -54,7 +54,9 @@
                                              loading="lazy">
                                     </a>
                                     <a class="category-caption"
-                                       href="{% url 'literature:books' %}?category={{ category.id }}">{{ category.name }}</a>
+                                       href="{% url 'literature:books' %}?category={{ category.id }}">
+                                        {{ category.name }}
+                                    </a>
                                 </div>
                             {% endfor %}
 
@@ -531,7 +533,8 @@
                                                 <div class="properties-img">
                                                     <a href="{% url 'literature:book_detail' book.id %}"><img
                                                             src="{{ book.cover_image.url }}"
-                                                            alt=""></a>
+                                                            alt="" style="height: 296px !important;" >
+                                                    </a>
                                                 </div>
                                                 <div class="properties-caption properties-caption2">
                                                     <h3>
