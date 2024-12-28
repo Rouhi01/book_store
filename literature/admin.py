@@ -53,12 +53,10 @@ class LanguageAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-@admin.register(BookImage)
-class BookImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'book', 'image')
-    search_fields = ('book__title',)
-    list_filter = ('book',)
 
+class BookImageInline(admin.StackedInline):
+    model = BookImage
+    can_delete = False
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
@@ -67,6 +65,8 @@ class BookAdmin(admin.ModelAdmin):
     list_filter = ('format', 'language', 'publisher')
     filter_horizontal = ('author', 'translator', 'category')
     autocomplete_fields = ('publisher', 'language')
+
+    inlines = [BookImageInline]
 
 
 @admin.register(Category)

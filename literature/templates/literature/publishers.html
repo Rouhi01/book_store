@@ -42,7 +42,12 @@
                                 <article class="publisher_item">
 
                                     <div class="publisher_item_img">
-                                        <img class="card-img rounded-0" src="{{ publisher.picture.url }}" alt="">
+                                        {% if publisher.picture %}
+                                        	<img class="card-img rounded-0" src="{{ publisher.picture.url }}" alt="">
+                                        {% else %}
+                                        	<img class="card-img rounded-0" src="{% static 'img/default_avatar/default-avatar.png' %}" alt="">
+                                        {% endif %}
+
                                         <a href="#" class="publisher_item_date">
                                             <h3>تأسیس</h3>
                                             <p>{{ publisher.date_establishment|date:'Y' }}</p>
@@ -50,7 +55,7 @@
                                     </div>
                                     <div class="publisher_details">
                                         <a class="d-inline-block" href="{% url 'literature:publisher_detail' publisher.id %}">
-                                            <h2 class="publisher-head" style="color: #2d2d2d;">انتشارات سبز</h2>
+                                            <h2 class="publisher-head" style="color: #2d2d2d;">{{ publisher.name }}</h2>
                                         </a>
                                         <p>{{ publisher.description|truncatewords:50 }}</p>
                                         <ul class="publisher-info-link">
@@ -89,7 +94,7 @@
                     <div class="col-lg-4">
                         <div class="publisher_right_sidebar">
                             <aside class="single_sidebar_widget search_widget">
-
+                                <form action="">
                                     <div class="form-group m-0">
                                         <div class="input-group">
                                             <form action="" method="get">
@@ -100,14 +105,20 @@
                                             </form>
                                         </div>
                                     </div>
+                                </form>
+
 
                             </aside>
 
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title" style="color: #2d2d2d;">ناشران برتر</h3>
-                                {% for publisher in publishers %}
+                                {% for publisher in top_publisher %}
                                 	<div class="media post_item">
-                                    <img src="{{ publisher.picture.url }}" alt="post">
+                                        {% if publisher.picture %}
+                                        	<img class="card-img rounded-0" src="{{ publisher.picture.url }}" alt="">
+                                        {% else %}
+                                        	<img class="card-img rounded-0" src="{% static 'img/default_avatar/default-avatar.png' %}" alt="">
+                                        {% endif %}
                                     <div class="media-body">
                                         <a href="{% url 'literature:publisher_detail' publisher.id %}">
                                             <h3 style="color: #2d2d2d;">انتشارات {{ publisher.name }}</h3>

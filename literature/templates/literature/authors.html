@@ -40,7 +40,12 @@
                             {% for author in authors %}
                                 <article class="author_item">
                                     <div class="author_item_img">
-                                        <img class="card-img rounded-0" src="{{ author.picture.url }}" alt="">
+                                        {% if author.picture %}
+                                            <img class="card-img rounded-0" src="{{ author.picture.url }}" alt="">
+                                        {% else %}
+                                            <img class="card-img rounded-0"
+                                                 src="{% static 'img/default_avatar/default-avatar.png' %}" alt="">
+                                        {% endif %}
                                         <a href="#" class="author_item_gener">
                                             <h3>زمینه</h3>
                                             <p>{{ author.field_of_writing.all|first }}</p>
@@ -52,8 +57,9 @@
                                         </a>
                                         <p>{{ author.biography|truncatewords:50 }}</p>
                                         <ul class="author-info-link">
-                                            <li><a href="#"><i class="fa fa-user"></i> {{ author.abooks.all.count }} کتاب</a></li>
-                                            <li><a href="#"><i class="fa fa-comments"></i> 3 نظر</a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i> {{ author.abooks.all.count }}
+                                                کتاب</a></li>
+                                            <li><a href="#"><i class="fa fa-comments"></i> {{ author.comment.all.count }} نظر</a></li>
                                         </ul>
                                     </div>
                                 </article>
@@ -91,7 +97,8 @@
                                     <div class="form-group m-0">
                                         <div class="input-group">
                                             <form action="" method="get">
-                                                <input type="text" class="form-control" placeholder="جستجو" name="search">
+                                                <input type="text" class="form-control" placeholder="جستجو"
+                                                       name="search">
                                                 <div class="input-group-append d-flex">
                                                     <button class="boxed-btn2" type="submit">جستجو</button>
                                                 </div>
@@ -119,18 +126,23 @@
                             </aside>
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title" style="color: #2d2d2d;">نویسندگان برتر</h3>
-                                {% for author in authors %}
-                                	<div class="media post_item">
-                                    <img src="{{ author.picture.url }}" alt="post">
-                                    <div class="media-body">
-                                        <a href="{% url 'literature:author_detail' author.id %}">
-                                            <h3 style="color: #2d2d2d;">{{ author.full_name }}</h3>
-                                        </a>
-                                        <p>{{ author.abooks.all.count }} کتاب</p>
+                                {% for author in top_authors %}
+                                    <div class="media post_item">
+                                        {% if author.picture %}
+                                            <img class="card-img rounded-0" src="{{ author.picture.url }}" alt="">
+                                        {% else %}
+                                            <img class="card-img rounded-0"
+                                                 src="{% static 'img/default_avatar/default-avatar.png' %}" alt="">
+                                        {% endif %}
+                                        <div class="media-body">
+                                            <a href="{% url 'literature:author_detail' author.id %}">
+                                                <h3 style="color: #2d2d2d;">{{ author.full_name }}</h3>
+                                            </a>
+                                            <p>{{ author.abooks.all.count }} کتاب</p>
+                                        </div>
                                     </div>
-                                </div>
                                 {% empty %}
-                                	خالی
+                                    خالی
                                 {% endfor %}
                             </aside>
                             <aside class="single_sidebar_widget post_category_widget">

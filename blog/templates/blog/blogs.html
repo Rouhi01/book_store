@@ -53,12 +53,13 @@
                                     </a>
                                     <p>{{ blog.body|truncatewords:50 }}</p>
                                     <ul class="blog-info-link">
-                                        <li><a href=""><i class="fa fa-user"></i>
-                                            {% for category in blog.category.all %}
-                                            	{{ category.name }}
-                                            {% endfor %}
+                                        {% for category in blog.category.all %}
+                                        	<li><a href=""><i class="fa fa-user"></i>
+                                                {{ category.name }}
+
                                         </a></li>
-                                        <li><a href="#"><i class="fa fa-comments"></i> 3 نظر</a></li>
+                                        {% endfor %}
+                                        <li><a href="#"><i class="fa fa-comments"></i> {{ blog.comment.all.count }} نظر</a></li>
                                     </ul>
                                 </div>
                             </article>
@@ -122,7 +123,7 @@
                             </aside>
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title" style="color: #2d2d2d;">مطالب اخیر</h3>
-                                {% for blog in blogs %}
+                                {% for blog in latest_blogs %}
                                 	<div class="media post_item">
                                     <img src="{{ blog.picture.url }}" alt="post">
                                     <div class="media-body">

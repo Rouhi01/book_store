@@ -10,7 +10,7 @@ from django.contrib.auth.models import ContentType
 from accounts.models import User
 from literature.forms import BookSearchForm
 from .models import Like, Comment
-from .forms import CommentForm, CommentReplyForm, LikeForm
+from .forms import CommentForm, CommentReplyForm, LikeForm, ContactForm
 from literature.models import Category, Book, Author, Publisher
 from blog.models import Blog
 
@@ -30,6 +30,9 @@ class HomeView(View):
 
         three_articles = Blog.objects.order_by('-created_at')
 
+        top_categories = Category.objects.annotate(book_count=Count('cbook')).order_by('-book_count')[:4]
+
+
 
         context = {
             'categories': categories,
@@ -37,7 +40,8 @@ class HomeView(View):
             'top_publishers': top_publishers,
             'top_comments': top_comments,
             'latest_books': latest_books,
-            'three_articles': three_articles
+            'three_articles': three_articles,
+            'top_categories': top_categories
 
         }
         return render(reqeust, self.template_name, context)
@@ -182,3 +186,35 @@ class CommentReplyView(LoginRequiredMixin, View):
             reply.save()
             messages.success(request, 'ریپلای شما با موفقیت ثبت شد', 'success')
         return redirect(obj.get_absolute_url())
+
+
+class ContactUsView(View):
+    template_name = 'home/contact_us.html'
+    form_class = ContactForm
+
+    def get(self, request):
+        print('hi')
+        form = self.form_class()
+        context = {'form': form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+
+        print(form.errors)
+        print('hi0')
+        if form.is_valid():
+            print('hi')
+            form.save()
+            messages.success(request, 'درخواست شما ثبت شد', 'success')
+            return redirect('home:contact_us')
+        return render(request, self.template_name, context={'form':form})
+
+
+
+class AboutUsView(View):
+    template_name = 'home/about_us.html'
+    form_class = ''
+
+    def get(self, request):
+        return render(request, self.template_name)

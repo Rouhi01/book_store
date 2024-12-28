@@ -10,21 +10,22 @@
                     <div class="col-xl-12">
                         <div class="slider-active dot-style">
                             {% for article in three_articles %}
-                            	<div class="single-slider slider-height slider-bg{{ article.id }} d-flex align-items-center">
-                                <div class="container">
-                                    <div class="row slider-title">
-                                        <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-7">
-                                            <div class="hero-caption">
-                                                <h1 data-animation="fadeInUp" data-delay=".4s">
-                                                    {{ article.title }}
-                                                </h1>
-                                                <a href="{% url 'blog:blog_detail' article.id article.slug %}" class="btn hero-btn" data-animation="bounceIn"
-                                                   data-delay=".8s">مشاهده مقاله</a>
+                                <div class="single-slider slider-height slider-bg{{ article.id }} d-flex align-items-center">
+                                    <div class="container">
+                                        <div class="row slider-title">
+                                            <div class="col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-7">
+                                                <div class="hero-caption">
+                                                    <h1 data-animation="fadeInUp" data-delay=".4s">
+                                                        {{ article.title }}
+                                                    </h1>
+                                                    <a href="{% url 'blog:blog_detail' article.id article.slug %}"
+                                                       class="btn hero-btn" data-animation="bounceIn"
+                                                       data-delay=".8s">مشاهده مقاله</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -49,9 +50,9 @@
                                 <div class="category-item">
                                     <a href="{% url 'literature:books' %}?category={{ category.id }}"
                                        class="category-img">
-                                        <img src='{% static "img/cat/tarikhi.jpg" %}'
+                                        <img src='{{ category.picture.url }}'
                                              alt=""
-                                             loading="lazy">
+                                             loading="lazy" style="height: 218px; width: 150px">
                                     </a>
                                     <a class="category-caption"
                                        href="{% url 'literature:books' %}?category={{ category.id }}">
@@ -457,7 +458,7 @@
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
                                        role="tab" aria-controls="nav-one" aria-selected="true">همه</a>
-                                    {% for category in categories %}
+                                    {% for category in top_categories %}
                                         <a class="nav-link" id="nav-{{ category.id }}-tab" data-bs-toggle="tab"
                                            href="#nav-{{ category.id }}" role="tab"
                                            aria-controls="nav-two" aria-selected="false">{{ category.name }}</a>
@@ -481,8 +482,8 @@
                                             <div class="properties-img">
                                                 <a href="{% url 'literature:book_detail' book.id %}">
                                                     <img
-                                                        src="{{ book.cover_image.url }}"
-                                                        alt="" style="height: 296px !important;">
+                                                            src="{{ book.cover_image.url }}"
+                                                            alt="" style="height: 296px !important;">
                                                 </a>
                                             </div>
                                             <div class="properties-caption properties-caption2">
@@ -492,7 +493,7 @@
                                                 <p>نویسنده:<a href="#" target="_parent"
                                                               class="author">
                                                     {% for author in book.author.all %}
-                                                    	{{ author.full_name }}
+                                                        {{ author.full_name }}
                                                     {% endfor %}
 
                                                 </a>
@@ -501,13 +502,9 @@
                                                         class="properties-footer d-flex justify-content-between align-items-center">
                                                     <div class="review">
                                                         <div class="rating">
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star"></i>
-                                                            <i class="fas fa-star-half-alt"></i>
+                                                            {{ book.rate|render_stars|safe }}
                                                         </div>
-                                                        <p>(<span>20</span> نظر)</p>
+                                                        <p>(<span>{{ book.comment.all.count }}</span> نظر)</p>
                                                     </div>
                                                     <div class="price">
                                                         <p>{{ book.price }}<span>تومان</span></p>
@@ -520,7 +517,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    {% for category in categories %}
+                    {% for category in top_categories %}
                         {% get_latest_books_in_category category.name as books_in_category %}
                         <div class="tab-pane fade" id="nav-{{ category.id }}" role="tabpanel"
                              aria-labelledby="nav-{{ category.id }}-tab">
@@ -533,7 +530,7 @@
                                                 <div class="properties-img">
                                                     <a href="{% url 'literature:book_detail' book.id %}"><img
                                                             src="{{ book.cover_image.url }}"
-                                                            alt="" style="height: 296px !important;" >
+                                                            alt="" style="height: 296px !important;">
                                                     </a>
                                                 </div>
                                                 <div class="properties-caption properties-caption2">
@@ -550,13 +547,9 @@
                                                             class="properties-footer d-flex justify-content-between align-items-center">
                                                         <div class="review">
                                                             <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star-half-alt"></i>
+                                                                {{ book.rate|render_stars|safe }}
                                                             </div>
-                                                            <p>(<span>12</span> نظر)</p>
+                                                            <p>(<span>{{ book.comment.all.count }}</span> نظر)</p>
                                                         </div>
                                                         <div class="price">
                                                             <p>{{ book.price }}<span>تومان</span></p>
@@ -576,7 +569,8 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="more-btn text-center mt-15">
-                            <a href="{% url 'literature:books' %}?sorted_by=newest" class="border-btn border-btn2 more-btn2">مشاهده بیشتر</a>
+                            <a href="{% url 'literature:books' %}?sorted_by=newest"
+                               class="border-btn border-btn2 more-btn2">مشاهده بیشتر</a>
                         </div>
                     </div>
                 </div>
@@ -595,9 +589,15 @@
                     {% for publisher in top_publishers %}
                         <div class="list" id="item-{{ publisher.id }}">
                             <div class="list-image">
-                                <a href="{% url 'literature:publisher_detail' publisher.id %}" target="_self">
-                                    <img src="{{ publisher.picture.url }}" alt=""/>
-                                </a>
+                                {% if publisher.picture %}
+                                    <a href="{% url 'literature:publisher_detail' publisher.id %}" target="_self">
+                                        <img src="{{ publisher.picture.url }}" alt=""/>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'literature:publisher_detail' publisher.id %}" target="_self">
+                                        <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt=""/>
+                                    </a>
+                                {% endif %}
                             </div>
 
                             <div class="list-caption">

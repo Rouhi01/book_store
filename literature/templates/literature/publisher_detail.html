@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load book_extras %}
 {% block content %}
     <main>
 
@@ -30,7 +31,11 @@
 
                         <div class="single-publisher-row d-flex align-items-center mb-0">
                             <div class="single-publisher-img">
-                                <img src="{{ publisher.picture.url }}" alt="">
+                                {% if publisher.picture %}
+                                    <img src="{{ publish.picture.url }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt="">
+                                {% endif %}
                             </div>
                             <div class="publisher-caption">
                                 <div class="publisher-title">
@@ -305,32 +310,29 @@
                                     <div class="slick-track" style="opacity: 1;">
 
                                         {% for book in publisher.pbooks.all %}
-                                            <div class="properties pb-20 slick-slide" style="width: 244px;"
+                                            <div class="properties pb-20 slick-slide" style="width: 244px; margin: 8px"
                                                  tabindex="-1" role="tabpanel"
                                                  aria-describedby="slick-slide-control{{ forloop.counter }}"
                                                  data-slick-index="{{ forloop.counter }}" aria-hidden="false">
                                                 <div class="properties-card">
                                                     <div class="properties-img">
-                                                        <a href="" tabindex="0">
+                                                        <a href="{% url 'literature:book_detail' book.id %}"
+                                                           tabindex="0">
                                                             <img src="{{ book.cover_image.url }}"
-                                                                 alt="{{ book.title }}" class="img-fluid">
+                                                                 alt="{{ book.title }}" class="img-fluid"
+                                                                 style="width: 244px; height: 365px">
                                                         </a>
                                                     </div>
                                                     <div class="properties-caption">
                                                         <h3>
-                                                            <a href=""
+                                                            <a href="{% url 'literature:book_detail' book.id %}"
                                                                tabindex="0">{{ book.title }}
                                                             </a>
                                                         </h3>
                                                         <div class="properties-footer">
                                                             <div class="review">
                                                                 <div class="rating">
-                                                                    <!-- ستاره‌ها به‌صورت دستی یا داینامیک بسته به داده‌ها -->
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star-half-alt"></i>
+                                                                    {{ book.rate|render_stars|safe }}
                                                                 </div>
                                                                 <p>(<span>{{ book.comment.all.count }}</span> نظر)
                                                                 </p>
@@ -366,7 +368,8 @@
                                 </ul>
 
                                 <div class="author-btn">
-                                    <a href="#books" class="white-btn mr-10">کتاب های ناشر</a>
+                                    <a href="{% url 'literature:books' %}?publisher={{ publisher.id }}"
+                                       class="white-btn mr-10">کتاب های ناشر</a>
                                 </div>
 
                             </div>

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
 {% load static %}
+{% load book_extras %}
 {% block content %}
     <main>
 
@@ -31,7 +32,12 @@
 
                         <div class="single-author-row d-flex align-items-center mb-0">
                             <div class="single-author-img">
-                                <img src="{{ author.picture.url }}" alt="">
+                                {% if author.picture %}
+                                    <img src="{{ author.picture.url }}" alt="">
+                                {% else %}
+                                    <img src="{% static 'img/default_avatar/default-avatar.png' %}" alt="">
+                                {% endif %}
+
                             </div>
                             <div class="author-caption">
                                 <div class="author-title">
@@ -288,7 +294,8 @@
                                                  data-slick-index="{{ forloop.counter }}" aria-hidden="false">
                                                 <div class="properties-card">
                                                     <div class="properties-img">
-                                                        <a href="{% url 'literature:book_detail' book.id %}" tabindex="0">
+                                                        <a href="{% url 'literature:book_detail' book.id %}"
+                                                           tabindex="0">
                                                             <img src="{{ book.cover_image.url }}"
                                                                  alt="{{ book.title }}"
                                                                  class="img-fluid"
@@ -304,12 +311,7 @@
                                                         <div class="properties-footer">
                                                             <div class="review">
                                                                 <div class="rating">
-                                                                    <!-- ستاره‌ها به‌صورت دستی یا داینامیک بسته به داده‌ها -->
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star-half-alt"></i>
+                                                                    {{ book.rate|render_stars|safe }}
                                                                 </div>
                                                                 <p>(<span>{{ book.comment.all.count }}</span> نظر)
                                                                 </p>

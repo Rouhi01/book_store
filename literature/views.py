@@ -22,17 +22,21 @@ class AuthorsView(View):
         profession = request.GET.get('profession')
         nationality = request.GET.get('nationality')
 
+        top_authors = authors
+
+        print(field_of_writing)
+
         if search:
             authors = authors.filter(full_name__icontains=search)
 
         if field_of_writing:
-            authors = authors.filter(field_of_writing__id__in=field_of_writing)
+            authors = authors.filter(field_of_writing__id=field_of_writing)
 
         if profession:
-            authors = authors.filter(profession__id__in=profession)
+            authors = authors.filter(profession__id=profession)
 
         if nationality:
-            authors = authors.filter(nationality__id__in=nationality)
+            authors = authors.filter(nationality__id=nationality)
 
         fields = Field.objects.all()
         nationalities = Nationality.objects.all()
@@ -42,7 +46,8 @@ class AuthorsView(View):
             'authors': authors,
             'fields': fields,
             'nationalities': nationalities,
-            'professions': professions
+            'professions': professions,
+            'top_authors': top_authors
         }
 
         return render(request, self.template_name, context)
@@ -84,12 +89,19 @@ class PublisherView(View):
     def get(self, request):
         publishers = Publisher.objects.all()
 
+        top_publisher = publishers
+
         search = request.GET.get('search')
 
         if search:
-            publishers = publishers.filter(full_name__icontains=search)
+            publishers = publishers.filter(name__icontains=search)
 
-        return render(request, self.template_name, {'publishers': publishers})
+
+
+
+        context = {'publishers': publishers, 'top_publisher':top_publisher}
+
+        return render(request, self.template_name, context)
 
 
 class PublisherDetailView(View):
@@ -127,13 +139,16 @@ class TranslatorsView(View):
 
     def get(self, request):
         translators = Translator.objects.all()
+        top_translators = translators
 
         search = request.GET.get('search')
 
         if search:
             translators = translators.filter(name__icontains=search)
 
-        return render(request, template_name=self.template_name, context={'translators': translators})
+        context = {'translators': translators, 'top_translators':top_translators}
+
+        return render(request, template_name=self.template_name, context=context)
 
 
 class TranslatorDetailView(View):
@@ -171,6 +186,8 @@ class BooksView(View):
     def get(self, request):
         books = Book.objects.all()
 
+        rate = request.GET.get('rate')
+        print(rate)
         category = request.GET.getlist('category')
         min_price = request.GET.get('min_price')
         max_price = request.GET.get('max_price')
@@ -178,6 +195,9 @@ class BooksView(View):
         author = request.GET.getlist('author')
         search = request.GET.get('search')
         sort_by = request.GET.get('sort_by')
+
+        if rate:
+            books = books.filter(rate__gte=int(rate))
 
         if category:
             books = books.filter(category__id__in=category)

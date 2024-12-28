@@ -60,3 +60,15 @@ class Like(models.Model):
         return f'{self.user} liked {self.content_type}'
 
 
+class Contact(models.Model):
+    email = models.EmailField()
+    full_name = models.CharField(max_length=80)
+    topic = models.CharField(max_length=120)
+    content = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.email} - {self.topic}'
+
+

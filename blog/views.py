@@ -15,6 +15,7 @@ class BlogsView(View):
 
     def get(self, request):
         blogs = Blog.objects.all()
+        latest_blogs = blogs
         tags = Tag.objects.all()
         categories = Category.objects.all()
 
@@ -22,11 +23,13 @@ class BlogsView(View):
         tag = request.GET.get('tag')
         search = request.GET.get('search')
 
+
+
         if category:
-            blogs = blogs.filter(category__id__in=category)
+            blogs = blogs.filter(category__id=category)
 
         if tag:
-            blogs = blogs.filter(tag__id__in=tag)
+            blogs = blogs.filter(tag__id=tag)
 
         if search:
             blogs = blogs.filter(
@@ -36,6 +39,7 @@ class BlogsView(View):
             )
 
         context = {
+            'latest_blogs': latest_blogs,
             'blogs': blogs,
             'tags': tags,
             'categories': categories
@@ -54,6 +58,12 @@ class BlogDetailView(View):
 
         blog = Blog.objects.get(id=blog_id, slug=slug)
 
+        related_blogs = Blog.objects.filter(
+            Q(tag__in=blog.tag.all()) |
+            Q(category__name__exact=blog.category.name) |
+            Q(user__id=blog.user.id)
+        )[:4]
+
         comments = Comment.objects.filter(
             content_type=ContentType.objects.get(model='blog', app_label='blog'),
             object_id=blog.id,
@@ -66,7 +76,8 @@ class BlogDetailView(View):
             'blog': blog,
             'comments': comments,
             'model_name': 'blog',
-            'app_label': 'blog'
+            'app_label': 'blog',
+            'related_blogs': related_blogs
         }
         return render(request, self.template_name, context)
 

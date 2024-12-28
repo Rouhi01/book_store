@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load book_extras %}
 {% block content %}
     <main>
 
@@ -86,7 +87,7 @@
                                                 <div id="sliderPrice"
                                                      class="filter__slider-price noUi-target noUi-rtl noUi-horizontal noUi-txt-dir-rtl"
                                                      data-min="0" data-max="1500000" data-step="10000"
-                                                     >
+                                                >
                                                     <div class="noUi-base">
                                                         <div class="noUi-connects">
                                                             <div class="noUi-connect"
@@ -120,23 +121,31 @@
 
                                     <div class="select-job-items2 mb-30">
                                         <div class="col-xl-12">
-                                            <select name="select2" style="display: none;">
+                                            <select name="rate">
                                                 <option value="">فیلتر براساس امتیاز</option>
-                                                <option value="">5 ستاره</option>
-                                                <option value="">4 ستاره</option>
-                                                <option value="">3 ستاره</option>
-                                                <option value="">2 ستاره</option>
-                                                <option value="">1 ستاره</option>
+                                                <option value="10" {% if rate == "10" %}selected{% endif %}>5 ستاره
+                                                </option>
+                                                <option value="8" {% if rate == "8" %}selected{% endif %}>4 ستاره
+                                                </option>
+                                                <option value="6" {% if rate == "6" %}selected{% endif %}>3 ستاره
+                                                </option>
+                                                <option value="4" {% if rate == "4" %}selected{% endif %}>2 ستاره
+                                                </option>
+                                                <option value="2" {% if rate == "2" %}selected{% endif %}>1 ستاره
+                                                </option>
+                                                <option value="0" {% if rate == "0" %}selected{% endif %}>0 ستاره
+                                                </option>
                                             </select>
                                             <div class="nice-select" tabindex="0"><span
                                                     class="current">فیلتر براساس امتیاز</span>
                                                 <ul class="list">
                                                     <li data-value="" class="option selected">فیلتر براساس امتیاز</li>
-                                                    <li data-value="" class="option">5 ستاره</li>
-                                                    <li data-value="" class="option">4 ستاره</li>
-                                                    <li data-value="" class="option">3 ستاره</li>
-                                                    <li data-value="" class="option">2 ستاره</li>
-                                                    <li data-value="" class="option">1 ستاره</li>
+                                                    <li data-value="10" class="option">5 ستاره</li>
+                                                    <li data-value="8" class="option">4 ستاره</li>
+                                                    <li data-value="6" class="option">3 ستاره</li>
+                                                    <li data-value="4" class="option">2 ستاره</li>
+                                                    <li data-value="2" class="option">1 ستاره</li>
+                                                    <li data-value="0" class="option">0 ستاره</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -152,9 +161,9 @@
                                                 <input type="checkbox"
                                                        name="publisher"
                                                        value="{{ publisher.id }}"
-                                                       {% if publisher.id|stringformat:"s" in selected_publishers %}
+                                                        {% if publisher.id|stringformat:"s" in selected_publishers %}
                                                        checked
-                                                       {% endif %}>
+                                                        {% endif %}>
                                                 <span class="checkmark"></span>
                                             </label>
                                         {% endfor %}
@@ -230,8 +239,8 @@
                                                     <div class="properties-img">
                                                         <a href="{% url 'literature:book_detail' book.id %}">
                                                             <img
-                                                                src="{{ book.cover_image.url }}"
-                                                                alt="" height="348px">
+                                                                    src="{{ book.cover_image.url }}"
+                                                                    alt="" height="348px">
                                                         </a>
                                                     </div>
                                                     <div class="properties-caption properties-caption2">
@@ -246,11 +255,7 @@
                                                         <div class="properties-footer d-flex justify-content-between align-items-center">
                                                             <div class="review">
                                                                 <div class="rating">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star-half-alt"></i>
+                                                                    {{ book.rate|render_stars|safe }}
                                                                 </div>
                                                                 <p>(<span>{{ book.comment.all.count }}</span> نظر)</p>
                                                             </div>
@@ -270,13 +275,13 @@
                                 </div>
                             </div>
                             {% if books %}
-                            	<div class="row">
-                                <div class="col-xl-12">
-                                    <div class="more-btn text-center mt-15">
-                                        <a href="#" class="border-btn border-btn2 more-btn2">مشاهده کتب بیشتر</a>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="more-btn text-center mt-15">
+                                            <a href="#" class="border-btn border-btn2 more-btn2">مشاهده کتب بیشتر</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             {% endif %}
                         </div>
 

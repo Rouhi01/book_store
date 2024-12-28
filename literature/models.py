@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
 from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 from django.urls import reverse
@@ -102,6 +102,7 @@ BOOK_FORMAT_CHOICES = [
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    picture = models.ImageField(upload_to='category_images/')
 
     class Meta:
         verbose_name = 'Cateogry'
@@ -131,6 +132,10 @@ class Book(models.Model):
         validators=[RegexValidator(regex=r'^\d{3}-\d{1,5}-\d{1,7}-\d{1,7}-\d{1}$', message="فرمت شابک معتبر نیست")]
     )
     category = models.ManyToManyField(Category, related_name='cbook')
+    rate = models.PositiveIntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(10)],
+        default=0
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

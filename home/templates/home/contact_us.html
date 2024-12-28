@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home:home' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">تماس با ما</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div class="slider-height2 slider-bg5 d-flex align-items-center justify-content-center">
+                            <div class="hero-caption hero-caption2">
+                                <h2>تماس با ما</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13895.827032714831!2d60.842548!3d29.459273!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ee73a043722c26f%3A0xe960bc827c4e2165!2z2K_Yp9mG2LTar9in2Ycg2LPbjNiz2KrYp9mGINmIINio2YTZiNqG2LPYqtin2YY!5e0!3m2!1sfa!2slu!4v1735230381007!5m2!1sfa!2slu"
+                                width="1296" height="365" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                    <div class="col-12">
+                        <h2 class="contact-title">اطلاعات تماس</h2>
+                    </div>
+
+                    <div class="col-lg-8">
+                        <form class="form-contact contact_form" action="{% url 'home:contact_us' %}" method="post"
+                              novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{ form.content }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{ form.full_name }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{ form.email }}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        {{ form.topic }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="button button-contactForm boxed-btn">ارسال</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-home"></i></span>
+                            <div class="media-body">
+                                <h3>ایران، زاهدان</h3>
+                                <p>خیابان دانشگاه</p>
+                            </div>
+                        </div>
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                            <div class="media-body">
+                                <h3>** ** 823 0902</h3>
+                                <p>شنبه تا پنج شنبه ساعت 8 الی 20</p>
+                            </div>
+                        </div>
+                        <div class="media contact-info">
+                            <span class="contact-info__icon"><i class="ti-email"></i></span>
+                            <div class="media-body">
+                                <h3>
+                                    <a href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ifkv=AeZLP9-nNZI2JloPVRaC3TUhIU2mkGKxRrXbH2dtre1e16SAxpmMFlLxmQocIDSrulmdWgqHuIHrOg&rip=1&sacu=1&service=mail&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S756332816%3A1735229900754238&ddm=1"
+                                       class="__cf_email__">r.shafahi11@gmail.com</a>
+                                </h3>
+                                <p>ایمیل مجموعه</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}
